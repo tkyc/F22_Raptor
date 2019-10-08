@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import Jet from '../objects/Jet'
+import { setTimeout } from 'timers';
 
 const style = {
     display: "block"
@@ -35,41 +37,46 @@ const Scene = (props) => {
         camera.position.set(0, 0, 0);
         var loader = new GLTFLoader();
 
-        loader.load('/models/F22_Raptor/scene.gltf', handle_load);
+        let jetPosition = {xpos: 0, ypos: -0.2, zpos: -3};
+        let jetOrientation = {xrot: 0, yrot: 1.56, zrot: 0};
+        let jet = new Jet('/models/F22_Raptor/scene.gltf', jetPosition, jetOrientation, loader);
+        scene.add(jet.model);
 
-        var mesh;
+        // loader.load('/models/F22_Raptor/scene.gltf', handle_load);
 
-        const handleObjectRotation = (event) => {
-            switch(event.keyCode) {
-                //UP
-                case 87:
-                    mesh.rotation.z += 0.01;
-                    break;
-                //DOWN
-                case 83:
-                    mesh.rotation.z -= 0.01;
-                    break;
-                //LEFT
-                case 65:
-                    mesh.rotation.y += 0.01;
-                    console.log(mesh.rotation.y);
-                    break;
-                //RIGHT
-                case 68:
-                    mesh.rotation.y -= 0.01;
-                    break;
-                default:
-            }
-        };
-        document.addEventListener("keydown", handleObjectRotation);
-        function handle_load(gltf) {
-            console.log(gltf);
-            mesh = gltf.scene;            
-            console.log(mesh.children[0]);
-            scene.add( mesh );
-            mesh.position.set(0, -0.2, -3);
-            mesh.rotation.set(0, 1.56, 0);
-        }
+        // var mesh;
+
+        // const handleObjectRotation = (event) => {
+        //     switch(event.keyCode) {
+        //         //UP
+        //         case 87:
+        //             mesh.rotation.z += 0.01;
+        //             break;
+        //         //DOWN
+        //         case 83:
+        //             mesh.rotation.z -= 0.01;
+        //             break;
+        //         //LEFT
+        //         case 65:
+        //             mesh.rotation.y += 0.01;
+        //             console.log(mesh.rotation.y);
+        //             break;
+        //         //RIGHT
+        //         case 68:
+        //             mesh.rotation.y -= 0.01;
+        //             break;
+        //         default:
+        //     }
+        // };
+        // document.addEventListener("keydown", handleObjectRotation);
+        // function handle_load(gltf) {
+        //     console.log(gltf);
+        //     mesh = gltf.scene;            
+        //     console.log(mesh.children[0]);
+        //     scene.add( mesh );
+        //     mesh.position.set(0, -0.2, -3);
+        //     mesh.rotation.set(0, 1.56, 0);
+        // }
 
         var animate = function () {
             requestAnimationFrame( animate );
