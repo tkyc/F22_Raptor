@@ -31,7 +31,7 @@ class Jet {
         switch(event.keyCode) {
             //UP
             case 87:
-                this.model.position.z -= 0.01;
+                this.model.position.z -= 1;
                 break;
             //DOWN
             case 83:
