@@ -24,13 +24,8 @@ export const setupScene = () => {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    //Setup lighting
-    let light0 = new THREE.AmbientLight(0xffffff, 1);
-    let light1 = new THREE.PointLight(0xffffff, 1);
-    scene.add(light0);
-    scene.add(light1);
-
-    //Load models, environment and animate
+    //Load models, environment, lighting and animate
+    loadLighting();
     loadModels();
     loadEnvironment();
     const animate = () => {
@@ -75,4 +70,14 @@ const loadEnvironment = () => {
     let geometry = new THREE.BoxGeometry(1000, 1000, 1000);
     let skybox = new THREE.Mesh(geometry, dayEnvironmentMaterials);
     scene.add(skybox);
+}
+//http://danni-three.blogspot.com/2013/09/threejs-heightmaps.html
+const loadLighting = () => {
+    let light0 = new THREE.AmbientLight(0xffffff, 0.5);   //Create equal lighting in scene
+    let light1 = new THREE.PointLight(0xffffff, 0.5);     //Radiate light from single point
+    let light2 = new THREE.DirectionalLight(0xffffff, 2); //Light coming directly above (0, 1, 0) - set vector to change
+
+    scene.add(light0);
+    scene.add(light1);
+    scene.add(light2);
 }
