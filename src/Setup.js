@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { Water } from 'three/examples/jsm/objects/Water';
 import Jet from './objects/Jet';
 
 const scene = new THREE.Scene();
@@ -11,7 +12,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 export const setupScene = () => {
     //Setup webGL renderer
     let renderer = new THREE.WebGLRenderer({
-        canvas: document.getElementById("myCanvas"), 
+        canvas: document.getElementById("myCanvas"),
         antialias: true
     });
 
@@ -27,7 +28,7 @@ export const setupScene = () => {
     //Load models, environment, lighting and animate
     loadLighting();
     loadModels();
-    loadEnvironment();
+    loadDayEnvironment();
     const animate = () => {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
@@ -46,8 +47,7 @@ const loadModels = () => {
                             });
 }
 
-const loadEnvironment = () => {
-    //Day environment
+const loadDayEnvironment = () => {
     let dayEnvironmentMaterials = [
         new THREE.MeshPhongMaterial({map: new TGALoader().load("/environment/miramar_ft.tga"), side: THREE.BackSide}),
         new THREE.MeshPhongMaterial({map: new TGALoader().load("/environment/miramar_bk.tga"), side: THREE.BackSide}),
@@ -56,22 +56,29 @@ const loadEnvironment = () => {
         new THREE.MeshPhongMaterial({map: new TGALoader().load("/environment/miramar_rt.tga"), side: THREE.BackSide}),
         new THREE.MeshPhongMaterial({map: new TGALoader().load("/environment/miramar_lf.tga"), side: THREE.BackSide})
     ];
-
-    //Night environment
-    // let nightEnvironmentMaterials = [
-    //     new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load( "/environment/nightsky_ft.png" ), side: THREE.BackSide}),
-    //     new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load( '/environment/nightsky_bk.png' ), side: THREE.BackSide}),
-    //     new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load( '/environment/nightsky_up.png' ), side: THREE.BackSide}),
-    //     new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load( '/environment/nightsky_dn.png' ), side: THREE.BackSide}),
-    //     new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load( '/environment/nightsky_rt.png' ), side: THREE.BackSide}),
-    //     new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load( '/environment/nightsky_lf.png' ), side: THREE.BackSide})
-    // ];
-
+    
     let geometry = new THREE.BoxGeometry(1000, 1000, 1000);
     let skybox = new THREE.Mesh(geometry, dayEnvironmentMaterials);
     scene.add(skybox);
+    loadOcean();
 }
-//http://danni-three.blogspot.com/2013/09/threejs-heightmaps.html
+
+const loadNightEnvironment = () => {
+    let nightEnvironmentMaterials = [
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("/environment/nightsky_ft.png"), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("/environment/nightsky_bk.png"), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("/environment/nightsky_up.png"), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("/environment/nightsky_dn.png"), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("/environment/nightsky_rt.png"), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("/environment/nightsky_lf.png"), side: THREE.BackSide})
+    ];
+
+    let geometry = new THREE.BoxGeometry(1000, 1000, 1000);
+    let skybox = new THREE.Mesh(geometry, nightEnvironmentMaterials);
+    scene.add(skybox);
+    loadOcean();
+}
+
 const loadLighting = () => {
     let light0 = new THREE.AmbientLight(0xffffff, 0.5);   //Create equal lighting in scene
     let light1 = new THREE.PointLight(0xffffff, 0.5);     //Radiate light from single point
@@ -80,4 +87,26 @@ const loadLighting = () => {
     scene.add(light0);
     scene.add(light1);
     scene.add(light2);
+}
+
+const loadOcean = () => {
+    let sunlight = new THREE.DirectionalLight(0xffffff, 2);
+    let waterGeometry = new THREE.PlaneBufferGeometry(1000, 1000);
+    let water = new Water(waterGeometry, {
+        textureWidth: 512,
+        textureHeight: 512,
+        waterNormals: new THREE.TextureLoader().load( "environment/waternormals.jpg", (texture) => {
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        }),
+        alpha: 1.0,
+        sunDirection: sunlight.position.clone().normalize(),
+        sunColor: 0xffffff,
+        waterColor: 0x001e0f,
+        distortionScale: 3.7,
+		fog: scene.fog !== undefined
+    });
+
+    water.rotation.x = - Math.PI / 2;
+    water.position.y = -499;
+    scene.add(water);
 }
