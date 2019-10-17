@@ -61,6 +61,7 @@ const loadDayEnvironment = () => {
     let skybox = new THREE.Mesh(geometry, dayEnvironmentMaterials);
     scene.add(skybox);
     loadOcean();
+    loadClouds();
 }
 
 const loadNightEnvironment = () => {
@@ -76,7 +77,6 @@ const loadNightEnvironment = () => {
     let geometry = new THREE.BoxGeometry(1000, 1000, 1000);
     let skybox = new THREE.Mesh(geometry, nightEnvironmentMaterials);
     scene.add(skybox);
-    loadOcean();
 }
 
 const loadLighting = () => {
@@ -95,7 +95,7 @@ const loadOcean = () => {
     let water = new Water(waterGeometry, {
         textureWidth: 512,
         textureHeight: 512,
-        waterNormals: new THREE.TextureLoader().load( "environment/waternormals.jpg", (texture) => {
+        waterNormals: new THREE.TextureLoader().load( "/environment/waternormals.jpg", (texture) => {
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
         }),
         alpha: 1.0,
@@ -109,4 +109,55 @@ const loadOcean = () => {
     water.rotation.x = - Math.PI / 2;
     water.position.y = -499;
     scene.add(water);
+}
+
+const loadClouds = () => {
+    //Generate random coordinate WITHIN bounds of skybox
+    const randomPosition = () => {
+        let position = Math.floor(Math.random() * 1000);
+        let sign = Math.floor(Math.random() * 2);
+        return sign ? position : -position;
+    }
+
+    const randomScale = () => {
+        return Math.random() * 30;
+    }
+
+    const randomRotation = () => {
+        return Math.random() * 360;
+    }
+
+    let texture = THREE.ImageUtils.loadTexture("/environment/cloud.jpg");
+    //How texture should be sampled from the image
+    texture.magFilter = THREE.LinearMipMapLinearFilter;
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+
+    let fog = new THREE.Fog(0xffffff, -100, 5000);
+    let material = new THREE.ShaderMaterial({
+		uniforms: {
+			"map": { type: "t", value: texture },
+			"fogColor" : { type: "c", value: fog.color },
+			"fogNear" : { type: "f", value: fog.near },
+			"fogFar" : { type: "f", value: fog.far },
+		},
+		depthWrite: false,
+		depthTest: false,
+		transparent: true
+    });
+    
+    for (let i = 0; i < 700; i++) {
+        let cloudTexture = THREE.ImageUtils.loadTexture("/environment/cloud.jpg");
+        let cloudMaterial = new THREE.SpriteMaterial({
+			map: cloudTexture,
+			useScreenCoordinates: false,
+			transparent:true,
+            opacity: 0.5
+        });
+        
+        let cloud = new THREE.Sprite(cloudMaterial);
+        cloud.position.set(randomPosition(), randomPosition(), randomPosition());
+        cloud.scale.set(randomScale(), randomScale(), randomScale());
+        cloud.rotation.set(randomRotation(), randomRotation(), randomRotation());
+        scene.add(cloud);
+    }
 }
