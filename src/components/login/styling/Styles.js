@@ -1,10 +1,11 @@
 const styles = {
     container: {
-        marginTop: "10%"
+        marginTop: "10%",
+        position: "absolute"
     },
 
     loginBox: {
-        backgroundColor: "rgba(0, 0, 0, 0.1)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         padding: "20px"
     },
 
