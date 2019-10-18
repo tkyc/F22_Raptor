@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Water } from 'three/examples/jsm/objects/Water';
-import Jet from './objects/Jet';
+import Jet from '../../objects/Jet';
 
 const scene = new THREE.Scene();
 const loader = new GLTFLoader();
@@ -145,13 +145,13 @@ const loadClouds = () => {
 		transparent: true
     });
     
-    for (let i = 0; i < 700; i++) {
+    for (let i = 0; i < 500; i++) {
         let cloudTexture = THREE.ImageUtils.loadTexture("/environment/cloud.jpg");
         let cloudMaterial = new THREE.SpriteMaterial({
 			map: cloudTexture,
 			useScreenCoordinates: false,
 			transparent:true,
-            opacity: 0.5
+            opacity: 0.1
         });
         
         let cloud = new THREE.Sprite(cloudMaterial);

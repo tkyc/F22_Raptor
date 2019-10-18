@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { setupScene } from '../Setup';
+import { setupScene } from './Setup';
 
 const Scene = () => {
 
