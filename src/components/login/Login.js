@@ -8,47 +8,45 @@ const Login = () => {
     useEffect(setupLoginAnimation);
 
     return(
-        <div>
-            <Container maxWidth="xs" 
-                    style={styles.container}>
-                <Paper style={styles.loginBox}>
-                    <FormGroup>
-                        <TextField
-                            id="username-input"
-                            label="Username"
-                            type="text"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth={true}
-                        />
-                        <TextField
-                            id="password-input"
-                            label="Password"
-                            type="password"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth={true}
-                        />
-                        <Button
-                            id="login-button"
-                            className="buttons"
-                            variant="contained"
-                            color="primary"
-                            style={styles.loginButton}>
-                            Login
-                        </Button>
-                        <Button
-                            id="register-button"
-                            className="buttons"
-                            variant="contained"
-                            color="primary"
-                            style={styles.registerButton}>
-                            Register
-                        </Button>
-                    </FormGroup>
-                </Paper>
-            </Container>
-        </div>
+        <Container maxWidth="xs" style={styles.container}>
+            <Paper style={styles.loginBox}>
+                <FormGroup>
+                    <TextField
+                        id="username-input"
+                        label="Username"
+                        type="text"
+                        margin="normal"
+                        variant="outlined"
+                        fullWidth={true}
+                    />
+                    <TextField
+                        id="password-input"
+                        label="Password"
+                        type="password"
+                        margin="normal"
+                        variant="outlined"
+                        fullWidth={true}
+                    />
+                    <Button
+                        id="login-button"
+                        className="buttons"
+                        variant="contained"
+                        color="primary"
+                        style={styles.loginButton}>
+                        Login
+                    </Button>
+                    <Button
+                        id="register-button"
+                        className="buttons"
+                        variant="contained"
+                        color="primary"
+                        style={styles.registerButton}>
+                        Register
+                    </Button>
+                </FormGroup>
+            </Paper>
+            <canvas id="myCanvas" style={{display: "block"}}/>
+        </Container>
     );
 }
 
