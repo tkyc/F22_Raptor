@@ -29,6 +29,7 @@ export const setupScene = () => {
     loadLighting();
     loadModels();
     loadDayEnvironment();
+
     const animate = () => {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
