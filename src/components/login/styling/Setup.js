@@ -18,7 +18,7 @@ export const setupLoginAnimation = () => {
         antialias: true
     });
 
-    scene.fog = new THREE.FogExp2(0x008080, 0.001);
+    scene.fog = new THREE.FogExp2(0x87ceeb, 0.001);
     renderer.setClearColor(scene.fog.color);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -39,7 +39,7 @@ export const setupLoginAnimation = () => {
 const loadLighting = () => {
     const light0 = new THREE.AmbientLight(0x555555);
     const light1 = new THREE.DirectionalLight(0xff8c19);
-    const light2 = new THREE.PointLight(0xcc6600, 50, 450, 1.7);
+    const light2 = new THREE.PointLight(0xffffff, 50, 450, 1.7);
     const light3 = new THREE.PointLight(0xd8547e, 50, 450, 1.7);
     const light4 = new THREE.PointLight(0x3677ac, 50, 450, 1.7);
 

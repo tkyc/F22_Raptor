@@ -1,6 +1,6 @@
 const styles = {
     container: {
-        marginTop: "10%",
+        marginTop: "13%",
         position: "absolute",
         left: "50%", //left and transform properties to centre an absolutely positioned element
         transform: "translateX(-50%)"
@@ -12,10 +12,14 @@ const styles = {
     },
 
     loginButton: {
-        marginTop: "5%",
+        marginTop: "5%"
     },
 
     registerButton: {
+        marginTop: "5%"
+    },
+
+    guestButton: {
         marginTop: "5%"
     }
 };
