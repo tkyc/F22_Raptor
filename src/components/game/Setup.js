@@ -35,7 +35,7 @@ export const setupScene = () => {
         renderer.render(scene, camera);
     }
     animate();
-}
+};
 
 const loadModels = () => {
     const raptor = new Jet("/models/F22_Raptor/scene.gltf",   //Model path
@@ -46,7 +46,7 @@ const loadModels = () => {
                                scene.add(raptor.model);
                                document.addEventListener("keydown", (event) => raptor.moveJet(event));
                             });
-}
+};
 
 const loadDayEnvironment = () => {
     let dayEnvironmentMaterials = [
@@ -63,7 +63,7 @@ const loadDayEnvironment = () => {
     scene.add(skybox);
     loadOcean();
     loadClouds();
-}
+};
 
 const loadNightEnvironment = () => {
     let nightEnvironmentMaterials = [
@@ -78,7 +78,7 @@ const loadNightEnvironment = () => {
     let geometry = new THREE.BoxGeometry(1000, 1000, 1000);
     let skybox = new THREE.Mesh(geometry, nightEnvironmentMaterials);
     scene.add(skybox);
-}
+};
 
 const loadLighting = () => {
     let light0 = new THREE.AmbientLight(0xffffff, 0.5);   //Create equal lighting in scene
@@ -88,7 +88,7 @@ const loadLighting = () => {
     scene.add(light0);
     scene.add(light1);
     scene.add(light2);
-}
+};
 
 const loadOcean = () => {
     let sunlight = new THREE.DirectionalLight(0xffffff, 2);
@@ -110,7 +110,7 @@ const loadOcean = () => {
     water.rotation.x = - Math.PI / 2;
     water.position.y = -499;
     scene.add(water);
-}
+};
 
 const loadClouds = () => {
     //Generate random coordinate WITHIN bounds of skybox
@@ -161,4 +161,4 @@ const loadClouds = () => {
         cloud.rotation.set(randomRotation(), randomRotation(), randomRotation());
         scene.add(cloud);
     }
-}
+};
