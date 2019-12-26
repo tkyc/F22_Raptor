@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Paper, TextField, Container, FormGroup, Button } from '@material-ui/core';
-import styles from './styling/Styles';
+import { Paper, Container, FormGroup, Button, Typography} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { styles, CssTextField} from './styling/Styles';
 import { setupLoginAnimation } from './styling/Setup';
 
 const Login = () => {
@@ -9,51 +10,52 @@ const Login = () => {
 
     return(
             <Container maxWidth="xs" style={styles.container}>
-                <Paper style={styles.loginBox}>
+                <Paper style={styles.playPaperBox}>
                     <FormGroup>
-                        <TextField
+                        <CssTextField
                             id="username-input"
                             label="Username"
                             type="text"
                             margin="normal"
-                            variant="outlined"
+                            variant="filled"
                             fullWidth={true}
+                            inputProps={{style: styles.loginInput}}
                         />
-                        <TextField
+                        <CssTextField
                             id="password-input"
                             label="Password"
                             type="password"
                             margin="normal"
-                            variant="outlined"
+                            variant="filled"
                             fullWidth={true}
+                            inputProps={{style: styles.loginInput}}
                         />
                         <Button
                             id="login-button"
-                            className="buttons"
                             variant="contained"
-                            color="primary"
-                            style={styles.loginButton}>
+                            color="inherit"
+                            style={styles.playButton}>
                             Login
                         </Button>
-                        <Button
-                            id="register-button"
-                            className="buttons"
-                            variant="contained"
-                            color="primary"
-                            style={styles.registerButton}>
-                            Register
-                        </Button>
+                        <Typography style={styles.divider}>
+                            OR
+                        </Typography>
                         <Button
                             id="guest-button"
-                            className="buttons"
                             variant="contained"
-                            color="primary"
-                            style={styles.guestButton}>
+                            color="inherit"
+                            style={styles.playButton}
+                            component={Link}
+                            to="/game">
                             Guest
                         </Button>
                     </FormGroup>
                 </Paper>
-              <canvas id="myCanvas" style={{display: "block"}}/>
+                <Paper style={styles.playPaperBox}>
+                    <Typography>
+                        Don't have an account? <Link to="/registration" style={styles.styledLink}>Sign up</Link>
+                    </Typography>
+                </Paper>
             </Container>
     );
 }

@@ -1,27 +1,44 @@
-const styles = {
+import { withStyles, TextField } from '@material-ui/core';
+
+export const CssTextField = withStyles({
+    root: {
+        "& label.Mui-focused": {
+            color: "black"
+        }
+    }
+})(TextField);
+
+export const styles = {
     container: {
         marginTop: "13%",
         position: "absolute",
-        left: "50%", //left and transform properties to centre an absolutely positioned element
-        transform: "translateX(-50%)"
+        left: "50%", 
+        transform: "translateX(-50%)" //Left and transform properties to centre an absolutely positioned element
     },
 
-    loginBox: {
-        backgroundColor: "rgba(255, 255, 255, 1)",
-        padding: "20px"
+    playPaperBox: {
+        backgroundColor: "rgba(0, 0, 0, 0.3)",
+        padding: "20px",
+        marginBottom: "5%"
     },
 
-    loginButton: {
+    playButton: {
+        backgroundColor: "#296d98",
+        color: "white",
+        marginTop: "5%",
+    },
+
+    loginInput: {
+        fontSize: "20px"
+    },
+
+    divider: {
         marginTop: "5%"
     },
 
-    registerButton: {
-        marginTop: "5%"
-    },
-
-    guestButton: {
-        marginTop: "5%"
+    styledLink: {
+        textDecoration: "none",
+        outline: "none",
+        display: "inline"
     }
 };
-
-export default styles;

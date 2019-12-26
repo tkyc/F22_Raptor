@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { setupScene } from './Setup';
 
 const Scene = () => {
@@ -6,7 +6,7 @@ const Scene = () => {
     useEffect(setupScene);
 
     return(
-        <canvas id="myCanvas" style={{display: "block"}}/>
+        null
     );
 }
 

@@ -31,7 +31,6 @@ export const setupLoginAnimation = () => {
         requestAnimationFrame(animate);
         composer.render();
         animateClouds();
-        //camera.rotation.z += 0.005;
     }
     animate();
 };
