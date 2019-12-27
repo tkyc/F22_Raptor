@@ -4,24 +4,27 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 
 const CLOUD_COUNT = 50;
+const cloudObjects = [];
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-const cloudObjects = [];
-
-camera.rotation.set(1.16, -0.12, 0.27);
-camera.position.z = 1;
+const canvas = document.createElement("canvas");
 
 export const setupLoginAnimation = () => {
+    canvas.style.display = "block";
+    canvas.id = "myCanvas";
+    document.body.appendChild(canvas);
+
     //Setup webGL renderer
     const renderer = new THREE.WebGLRenderer({
         canvas: document.getElementById("myCanvas"),
         antialias: true
     });
 
+    camera.rotation.set(1.16, -0.12, 0.27);
+    camera.position.z = 1;
     scene.fog = new THREE.FogExp2(0x87ceeb, 0.001);
     renderer.setClearColor(scene.fog.color);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
 
     const composer = postprocessing(renderer);
     loadLighting();

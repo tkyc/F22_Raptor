@@ -1,21 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Scene from './components/game/Scene';
+import Game from './components/game/Game';
 import Login from './components/login/Login';
 import './App.css';
 
 const App = () => {
 	return (
         <div className="App">
-            <canvas id="myCanvas" style={{display: "block"}}/>
 			<Router>
 				<Switch>
-					<Route exact path="/">
-   		         		<Login/>
-					</Route>
-					<Route exact path="/game">
-						<Scene/>
-					</Route>
+					<Route exact path="/"><Login/></Route>
+					<Route exact path="/game"><Game/></Route>
 				</Switch>
 			</Router>
 		</div>

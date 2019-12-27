@@ -8,8 +8,13 @@ import Jet from '../../objects/Jet';
 const scene = new THREE.Scene();
 const loader = new GLTFLoader();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const canvas = document.createElement("canvas");
 
 export const setupScene = () => {
+    canvas.style.display = "block";
+    canvas.id = "myCanvas";
+    document.body.appendChild(canvas);
+
     //Setup webGL renderer
     let renderer = new THREE.WebGLRenderer({
         canvas: document.getElementById("myCanvas"),
@@ -62,7 +67,6 @@ const loadDayEnvironment = () => {
     let skybox = new THREE.Mesh(geometry, dayEnvironmentMaterials);
     scene.add(skybox);
     loadOcean();
-    loadClouds();
 };
 
 const loadNightEnvironment = () => {
@@ -112,53 +116,53 @@ const loadOcean = () => {
     scene.add(water);
 };
 
-const loadClouds = () => {
-    //Generate random coordinate WITHIN bounds of skybox
-    const randomPosition = () => {
-        let position = Math.floor(Math.random() * 1000);
-        let sign = Math.floor(Math.random() * 2);
-        return sign ? position : -position;
-    }
-
-    const randomScale = () => {
-        return Math.random() * 30;
-    }
-
-    const randomRotation = () => {
-        return Math.random() * 360;
-    }
-
-    let texture = THREE.ImageUtils.loadTexture("/environment/cloud.jpg");
-    //How texture should be sampled from the image
-    texture.magFilter = THREE.LinearMipMapLinearFilter;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
-
-    let fog = new THREE.Fog(0xffffff, -100, 5000);
-    let material = new THREE.ShaderMaterial({
-		uniforms: {
-			"map": { type: "t", value: texture },
-			"fogColor" : { type: "c", value: fog.color },
-			"fogNear" : { type: "f", value: fog.near },
-			"fogFar" : { type: "f", value: fog.far },
-		},
-		depthWrite: false,
-		depthTest: false,
-		transparent: true
-    });
-    
-    for (let i = 0; i < 500; i++) {
-        let cloudTexture = THREE.ImageUtils.loadTexture("/environment/cloud.jpg");
-        let cloudMaterial = new THREE.SpriteMaterial({
-			map: cloudTexture,
-			useScreenCoordinates: false,
-			transparent:true,
-            opacity: 0.1
-        });
-        
-        let cloud = new THREE.Sprite(cloudMaterial);
-        cloud.position.set(randomPosition(), randomPosition(), randomPosition());
-        cloud.scale.set(randomScale(), randomScale(), randomScale());
-        cloud.rotation.set(randomRotation(), randomRotation(), randomRotation());
-        scene.add(cloud);
-    }
-};
+//const loadClouds = () => {
+//    //Generate random coordinate WITHIN bounds of skybox
+//    const randomPosition = () => {
+//        let position = Math.floor(Math.random() * 1000);
+//        let sign = Math.floor(Math.random() * 2);
+//        return sign ? position : -position;
+//    }
+//
+//    const randomScale = () => {
+//        return Math.random() * 30;
+//    }
+//
+//    const randomRotation = () => {
+//        return Math.random() * 360;
+//    }
+//
+//    let texture = THREE.ImageUtils.loadTexture("/environment/cloud.jpg");
+//    //How texture should be sampled from the image
+//    texture.magFilter = THREE.LinearMipMapLinearFilter;
+//    texture.minFilter = THREE.LinearMipmapLinearFilter;
+//
+//    let fog = new THREE.Fog(0xffffff, -100, 5000);
+//    let material = new THREE.ShaderMaterial({
+//		uniforms: {
+//			"map": { type: "t", value: texture },
+//			"fogColor" : { type: "c", value: fog.color },
+//			"fogNear" : { type: "f", value: fog.near },
+//			"fogFar" : { type: "f", value: fog.far },
+//		},
+//		depthWrite: false,
+//		depthTest: false,
+//		transparent: true
+//    });
+//    
+//    for (let i = 0; i < 500; i++) {
+//        let cloudTexture = THREE.ImageUtils.loadTexture("/environment/cloud.jpg");
+//        let cloudMaterial = new THREE.SpriteMaterial({
+//			map: cloudTexture,
+//			useScreenCoordinates: false,
+//			transparent:true,
+//            opacity: 0.1
+//        });
+//        
+//        let cloud = new THREE.Sprite(cloudMaterial);
+//        cloud.position.set(randomPosition(), randomPosition(), randomPosition());
+//        cloud.scale.set(randomScale(), randomScale(), randomScale());
+//        cloud.rotation.set(randomRotation(), randomRotation(), randomRotation());
+//        scene.add(cloud);
+//    }
+//};

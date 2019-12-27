@@ -2,11 +2,17 @@ import React, { useEffect } from 'react';
 import { Paper, Container, FormGroup, Button, Typography} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { styles, CssTextField} from './styling/Styles';
-import { setupLoginAnimation } from './styling/Setup';
+import { setupLoginAnimation, disposeScene } from './styling/Setup';
 
 const Login = () => {
 
-    useEffect(setupLoginAnimation);
+    useEffect(() => {
+        setupLoginAnimation();
+
+        return () => {
+            document.getElementById("myCanvas").remove();
+        }
+    });
 
     return(
             <Container maxWidth="xs" style={styles.container}>
@@ -37,9 +43,6 @@ const Login = () => {
                             style={styles.playButton}>
                             Login
                         </Button>
-                        <Typography style={styles.divider}>
-                            OR
-                        </Typography>
                         <Button
                             id="guest-button"
                             variant="contained"

@@ -32,8 +32,8 @@ export const styles = {
         fontSize: "20px"
     },
 
-    divider: {
-        marginTop: "5%"
+    typography: {
+        color: "white"
     },
 
     styledLink: {
