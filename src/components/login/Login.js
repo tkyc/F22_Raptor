@@ -14,7 +14,7 @@ const Login = () => {
         }
     });
 
-    return(
+    return (
             <Container maxWidth="xs" style={styles.container}>
                 <Paper style={styles.playPaperBox}>
                     <FormGroup>
