@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import { Paper, Container, FormGroup, TextField, Button, Typography, Grid } from '@material-ui/core';
-import { styles }from './styling/Styles';
+import { Link } from 'react-router-dom';
+import { Paper, FormGroup, TextField, Button, Typography, Grid } from '@material-ui/core';
+import { styles } from './styling/Styles';
 
 const Registration = () => {
 
     return (
-        <Container maxWidth="md" style={styles.container}>
-            <Paper>
+        <Paper style={styles.container}>
+            <FormGroup>
                 <Grid container spacing={3} style={styles.grid}>
                     <Grid item xs={6}>
                         <TextField
@@ -88,9 +89,23 @@ const Registration = () => {
                             }}>
                         </TextField>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Grid container item>
+                            <Typography><Link style={styles.styledLink} to="/">Already have an account?</Link></Typography>
+                        </Grid>
+                        <Grid container item justify="flex-end">
+                            <Button
+                                id="signup-submit-button"
+                                variant="contained"
+                                color="inherit"
+                                style={styles.submitButton}>
+                                Submit
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
-            </Paper>
-        </Container>
+            </FormGroup>
+        </Paper>
     );
 }
 
