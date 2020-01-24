@@ -3,42 +3,47 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 
-const CLOUD_COUNT = 50;
-const cloudObjects = [];
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-const canvas = document.createElement("canvas");
-
 export const setupLoginAnimation = () => {
+    const cloudObjects = [];
+
+    //Setup canvas
+    const canvas = document.createElement("canvas");
     canvas.style.display = "block";
     canvas.id = "myCanvas";
     document.body.appendChild(canvas);
+
+    //Setup scene
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x87ceeb, 0.001);
 
     //Setup webGL renderer
     const renderer = new THREE.WebGLRenderer({
         canvas: document.getElementById("myCanvas"),
         antialias: true
     });
-
-    camera.rotation.set(1.16, -0.12, 0.27);
-    camera.position.z = 1;
-    scene.fog = new THREE.FogExp2(0x87ceeb, 0.001);
     renderer.setClearColor(scene.fog.color);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    const composer = postprocessing(renderer);
-    loadLighting();
-    loadClouds();
+    //Camera positioning
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.rotation.set(1.16, -0.12, 0.27);
+    camera.position.z = 1;
 
+    //Apply post processing
+    const composer = postprocessing(renderer, scene, camera);
+    loadLighting(scene);
+    loadClouds(scene, cloudObjects);
+
+    //Animate
     const animate = () => {
         requestAnimationFrame(animate);
         composer.render();
-        animateClouds();
+        animateClouds(cloudObjects);
     }
     animate();
 };
 
-const loadLighting = () => {
+const loadLighting = (scene) => {
     const light0 = new THREE.AmbientLight(0x555555);
     const light1 = new THREE.DirectionalLight(0xff8c19);
     const light2 = new THREE.PointLight(0xffffff, 50, 450, 1.7);
@@ -57,7 +62,7 @@ const loadLighting = () => {
     scene.add(light4);
 };
 
-const loadClouds = () => {
+const loadClouds = (scene, cloudObjects) => {
     const textureLoader = new THREE.TextureLoader();
 
     textureLoader.load("/textures/smoke.png", texture => {
@@ -67,7 +72,7 @@ const loadClouds = () => {
             transparent: true
         });
     
-        for (let i = 0; i < CLOUD_COUNT; i++) {
+        for (let i = 0; i < 50; i++) {
             let cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
     
             cloud.position.set(Math.random() * 800 - 400, 500, Math.random() * 500 - 500);
@@ -83,13 +88,14 @@ const loadClouds = () => {
     });
 };
 
-const animateClouds = () => {
+const animateClouds = (cloudObjects) => {
     cloudObjects.forEach(cloud => {
         cloud.rotation.z += 0.001;
     });
 };
 
-const postprocessing = (renderer) => {
+//TODO --- Fix postprocessing (not working)
+const postprocessing = (renderer, scene, camera) => {
     const composer = new EffectComposer(renderer);
     const renderPass = new RenderPass(scene, camera);
     const bloomPass = new BloomPass(1000, 25, 4, 256);

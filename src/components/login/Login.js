@@ -1,18 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Paper, Container, FormGroup, Button, Typography} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { styles, CssTextField} from './styling/Styles';
-import { setupLoginAnimation, disposeScene } from './styling/Setup';
+import { setupLoginAnimation } from './styling/Setup';
 
-const Login = () => {
+const Login = (props) => {
+
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
+
+    const handleChange = (event)=> {
+        if (event.target.id === "username-input") setUsername(event.target.value);
+        else setPassword(event.target.value);
+    };
+
+    const login = () => {
+        console.log("Performing login...");
+        console.log(username);
+        console.log(password);
+    };
 
     useEffect(() => {
         setupLoginAnimation();
 
         return () => {
-            document.getElementById("myCanvas").remove();
+            //document.getElementById("myCanvas").remove();
         }
-    });
+    }, []);
 
     return (
             <Container maxWidth="xs" style={styles.container}>
@@ -26,6 +40,7 @@ const Login = () => {
                             variant="filled"
                             fullWidth={true}
                             inputProps={{style: styles.loginInput}}
+                            onChange={handleChange}
                         />
                         <CssTextField
                             id="password-input"
@@ -35,12 +50,14 @@ const Login = () => {
                             variant="filled"
                             fullWidth={true}
                             inputProps={{style: styles.loginInput}}
+                            onChange={handleChange}
                         />
                         <Button
                             id="login-button"
                             variant="contained"
                             color="inherit"
-                            style={styles.playButton}>
+                            style={styles.playButton}
+                            onClick={login}>
                             Login
                         </Button>
                         <Button

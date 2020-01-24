@@ -5,6 +5,16 @@ import { styles } from './styling/Styles';
 
 const Registration = () => {
 
+    useEffect(() => {
+        return () => {
+            try {
+                document.getElementById("myCanvas").remove();
+            } catch (exception) {
+                console.log("Canvas does not exist.")
+            }
+        }
+    });
+
     return (
         <Paper style={styles.container}>
             <FormGroup>

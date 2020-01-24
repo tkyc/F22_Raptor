@@ -1,8 +1,8 @@
 export const styles = {
     container: {
         width: "40%",
-        marginTop: "2%",
         position: "absolute",
+        top: "15vh",
         left: "50%", 
         transform: "translateX(-50%)", //Left and transform properties to centre an absolutely positioned element
         backgroundColor: "rgba(0, 0, 0, 0.3)"
