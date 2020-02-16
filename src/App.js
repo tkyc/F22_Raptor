@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import setupAnimation from './utils/LandingAnimation';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Game from './components/game/Game';
-import Login from './components/login/Login';
-import Registration from './components/registration/Registration';
+import { Provider } from 'react-redux';
+import store from './utils/redux/store';
+import Game from './components/game/game';
+import Login from './components/login/login';
+import Registration from './components/registration/registration';
 import './App.css';
 
 const App = () => {
+
+	useEffect(() => {
+		setupAnimation();
+	});
+
 	return (
-        <div className="App">
-			<Router>
-				<Switch>
-					<Route exact path="/"><Login/></Route>
-                    <Route exact path="/game"><Game/></Route>
-                    <Route exact path="/registration"><Registration/></Route>
-				</Switch>
-			</Router>
-		</div>
+		<Provider store={store}>
+	        <div className="App">
+				<Router>
+					<Switch>
+						<Route exact path="/" component={Login}/>
+	                    <Route exact path="/game" component={Game}/>
+	                    <Route exact path="/registration" component={Registration}/>
+					</Switch>
+				</Router>
+			</div>
+		</Provider>
 	);
 }
 

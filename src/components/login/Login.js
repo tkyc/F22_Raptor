@@ -1,30 +1,53 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { authenticateLogin } from '../../utils/redux/actions/authenticateActions';
 import { Paper, Container, FormGroup, Button, Typography} from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { styles, CssTextField} from './styling/Styles';
-import { setupLoginAnimation } from './styling/Setup';
+import { styles, CssTextField} from './styling/styles';
 
-const Login = (props) => {
+const Login = () => {
 
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [username, setUsername] = useState({value: null, error: false});
+    const [password, setPassword] = useState({value:null, error: false});
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
 
     const handleChange = (event)=> {
-        if (event.target.id === "username-input") setUsername(event.target.value);
-        else setPassword(event.target.value);
+        switch(event.target.id) {
+            case "username-input":
+                setUsername({
+                    value: event.target.value, error: validateUsername(event.target.value)
+                });
+                break;
+            case "password-input":
+                setPassword({
+                    value: event.target.value, error: validatePassword(event.target.value)
+                });
+                break;
+            default:
+                break;
+        }
     };
 
     const login = () => {
         console.log("Performing login...");
         console.log(username);
         console.log(password);
+        dispatch(authenticateLogin(username, password));
     };
 
-    useEffect(() => {
-        setupLoginAnimation();
+    const validateUsername = (value) => {
+        return !value;
+    }
 
+    const validatePassword = (value) => {
+        return !value;
+    }
+
+    useEffect(() => {
         return () => {
-            //document.getElementById("myCanvas").remove();
+            setUsername(null);
+            setPassword(null);
         }
     }, []);
 
@@ -41,7 +64,7 @@ const Login = (props) => {
                             fullWidth={true}
                             inputProps={{style: styles.loginInput}}
                             onChange={handleChange}
-                        />
+                            error={username.error}/>
                         <CssTextField
                             id="password-input"
                             label="Password"
@@ -51,7 +74,7 @@ const Login = (props) => {
                             fullWidth={true}
                             inputProps={{style: styles.loginInput}}
                             onChange={handleChange}
-                        />
+                            error={password.error}/>
                         <Button
                             id="login-button"
                             variant="contained"

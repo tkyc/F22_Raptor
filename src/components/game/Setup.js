@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Water } from 'three/examples/jsm/objects/Water';
-import Jet from '../../objects/Jet';
+import Jet from '../../models/jet';
 
 const scene = new THREE.Scene();
 const loader = new GLTFLoader();

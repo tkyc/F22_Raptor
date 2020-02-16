@@ -3,7 +3,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 
-export const setupLoginAnimation = () => {
+const setupAnimation = () => {
     const cloudObjects = [];
 
     //Setup canvas
@@ -106,3 +106,5 @@ const postprocessing = (renderer, scene, camera) => {
 
     return composer;
 };
+
+export default setupAnimation;

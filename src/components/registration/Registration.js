@@ -1,19 +1,117 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Paper, FormGroup, TextField, Button, Typography, Grid } from '@material-ui/core';
-import { styles } from './styling/Styles';
+import { styles } from './styling/styles';
 
 const Registration = () => {
 
+    const [firstName, setFirstName] = useState({value: null, error: false});
+    const [lastName, setLastName] = useState({value: null, error: false});
+    const [email, setEmail] = useState({value: null, error: false});
+    const [username, setUsername] = useState({value: null, error: false});
+    const [password, setPassword] = useState({value: null, error: false});
+    const [confirmPassword, setConfirmPassword] = useState({value: null, error: false});
+    const [birthday, setBirthday] = useState({value: null, error: false});
+
+    const handleChange = (event) => {
+        switch(event.target.id) {
+            case "firstname-input":
+                setFirstName({
+                    value: event.target.value, 
+                    error: validateFirstNameField(event.target.value)
+                });
+                break;
+            case "lastname-input":
+                setLastName({
+                    value: event.target.value, 
+                    error: validateLastNameField(event.target.value)
+                });
+                break;
+            case "email-input":
+                setEmail({
+                    value: event.target.value, 
+                    error: validateEmailField(event.target.value)
+                });
+                break;
+            case "username-input":
+                setUsername({
+                    value: event.target.value, 
+                    error: validateUsernameField(event.target.value)
+                });
+                break;
+            case "password-input":
+                setPassword({
+                    value: event.target.value, 
+                    error: validatePasswordField(event.target.value)
+                });
+                break;
+            case "confirm-password-input":
+                setConfirmPassword({
+                    value: event.target.value, 
+                    error: validateConfirmPasswordField(event.target.value)
+                });
+                break;
+            case "birthday-input":
+                setBirthday({
+                    value: event.target.value, 
+                    error: validateBirthdayField(event.target.value)
+                });
+                break;
+            default:
+                break;
+        }
+    };
+
+    const registerUser = () => {
+        console.log("Registering user...");
+        console.log(firstName.value);
+        console.log(lastName.value);
+        console.log(email.value);
+        console.log(username.value);
+        console.log(password.value);
+        console.log(confirmPassword.value);
+        console.log(birthday.value);
+    };
+
+    const validateFirstNameField = (value) => {
+        return !value;
+    };
+
+    const validateLastNameField = (value) => {
+        return !value;
+    };
+
+    const validateEmailField = (value) => {
+        return !value;
+    };
+
+    const validateUsernameField = (value) => {
+        return !value;       
+    };
+
+    const validatePasswordField = (value) => {
+        return !value;
+    };
+
+    const validateConfirmPasswordField = (value) => {
+        return !value;
+    };
+
+    const validateBirthdayField = (value) => {
+        return !value;
+    };
+
     useEffect(() => {
         return () => {
-            try {
-                document.getElementById("myCanvas").remove();
-            } catch (exception) {
-                console.log("Canvas does not exist.")
-            }
+            setFirstName(null);
+            setLastName(null);
+            setEmail(null);
+            setUsername(null);
+            setPassword(null);
+            setConfirmPassword(null);
+            setBirthday(null);
         }
-    });
+    }, []);
 
     return (
         <Paper style={styles.container}>
@@ -27,7 +125,9 @@ const Registration = () => {
                             margin="normal"
                             variant="standard"
                             fullWidth={true}
-                            required={true}>
+                            required={true}
+                            onChange={handleChange}
+                            error={firstName.error}>
                         </TextField>
                     </Grid>
                     <Grid item xs={6}>
@@ -38,7 +138,9 @@ const Registration = () => {
                             margin="normal"
                             variant="standard"
                             fullWidth={true}
-                            required={true}>
+                            required={true}
+                            onChange={handleChange}
+                            error={lastName.error}>
                         </TextField>
                     </Grid>
                     <Grid item xs={12}>
@@ -49,7 +151,9 @@ const Registration = () => {
                             margin="normal"
                             variant="standard"
                             fullWidth={true}
-                            required={true}>
+                            required={true}
+                            onChange={handleChange}
+                            error={email.error}>
                         </TextField>
                     </Grid>
                     <Grid item xs={12}>
@@ -60,7 +164,9 @@ const Registration = () => {
                             margin="normal"
                             variant="standard"
                             fullWidth={true}
-                            required={true}>
+                            required={true}
+                            onChange={handleChange}
+                            error={username.error}>
                         </TextField>
                     </Grid>
                     <Grid item xs={6}>
@@ -71,7 +177,9 @@ const Registration = () => {
                             margin="normal"
                             variant="standard"
                             fullWidth={true}
-                            required={true}>
+                            required={true}
+                            onChange={handleChange}
+                            error={password.error}>
                         </TextField>
                     </Grid>
                     <Grid item xs={6}>
@@ -82,7 +190,9 @@ const Registration = () => {
                             margin="normal"
                             variant="standard"
                             fullWidth={true}
-                            required={true}>
+                            required={true}
+                            onChange={handleChange}
+                            error={confirmPassword.error}>
                         </TextField>
                     </Grid>
                     <Grid item xs={12}>
@@ -96,7 +206,9 @@ const Registration = () => {
                             required={true}
                             InputLabelProps={{
                                 shrink: true
-                            }}>
+                            }}
+                            onChange={handleChange}
+                            error={birthday.error}>
                         </TextField>
                     </Grid>
                     <Grid item xs={12}>
@@ -108,7 +220,8 @@ const Registration = () => {
                                 id="signup-submit-button"
                                 variant="contained"
                                 color="inherit"
-                                style={styles.submitButton}>
+                                style={styles.submitButton}
+                                onClick={registerUser}>
                                 Submit
                             </Button>
                         </Grid>
