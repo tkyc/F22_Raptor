@@ -6,19 +6,23 @@ export const setAuthenticationStatus = () => {
 };
 
 export const authenticateLogin = (username, password) => {
-    try {
-        axios({
-            method: "POST",
-            url: "http://localhost:8080/api/v1/accounts/login",
-            data: {
-                username: username,
-                password: password
-            }
-        }).then(response => {
-            console.log(response);
-            return {type: DEFAULT};
-        })
-    } catch (exception) {
-        return {type: DEFAULT};
-    }; 
+    return (dispatch, getState) => {
+        const { isAuthenticated } = getState().auth;
+
+        if (!isAuthenticated) {
+            axios.defaults.withCredentials = true;
+
+            return axios({
+                method: "POST",
+                url: "http://localhost:8080/api/v1/accounts/login",
+                data: {
+                    username: username,
+                    password: password
+                }
+            }).then(response => {
+                console.log(response);
+                dispatch(setAuthenticationStatus());
+            });
+        }
+    };
 };

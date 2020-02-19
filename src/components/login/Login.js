@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { authenticateLogin } from '../../utils/redux/actions/authenticateActions';
+import { authenticateLogin, setAuthenticationStatus } from '../../utils/redux/actions/authenticateActions';
 import { Paper, Container, FormGroup, Button, Typography} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { styles, CssTextField} from './styling/styles';
@@ -30,10 +30,7 @@ const Login = () => {
     };
 
     const login = () => {
-        console.log("Performing login...");
-        console.log(username);
-        console.log(password);
-        dispatch(authenticateLogin(username, password));
+        dispatch(authenticateLogin(username.value, password.value));
     };
 
     const validateUsername = (value) => {

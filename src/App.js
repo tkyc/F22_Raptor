@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import setupAnimation from './utils/LandingAnimation';
+import setupAnimation from './utils/landingAnimation';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './utils/redux/store';
