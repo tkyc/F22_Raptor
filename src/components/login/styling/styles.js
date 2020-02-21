@@ -10,8 +10,8 @@ export const CssTextField = withStyles({
 
 export const styles = {
     container: {
-        marginTop: "13%",
         position: "absolute",
+        top: "25vh",
         left: "50%", 
         transform: "translateX(-50%)" //Left and transform properties to centre an absolutely positioned element
     },
