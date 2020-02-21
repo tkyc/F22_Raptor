@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import setupAnimation from './utils/landingAnimation';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProtectedRoute from './components/common/protectedRoute/protectedRoute';
-import Game from './components/game/Game';
+import Game from './components/game/game';
 import Login from './components/login/login';
 import Registration from './components/registration/registration';
 import Landing from './components/landing/landing';
