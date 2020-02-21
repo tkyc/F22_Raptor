@@ -12,6 +12,12 @@ const setupAnimation = () => {
     canvas.id = "myCanvas";
     document.body.appendChild(canvas);
 
+    //Browser size change requires to resize canvas and redraw animation
+    document.body.onresize = () => {
+        document.getElementById("myCanvas").remove();
+        setupAnimation();
+    };
+
     //Setup scene
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x87ceeb, 0.001);

@@ -1,8 +1,13 @@
 import * as axios from 'axios';
-import { AUTHENTICATE, DEFAULT } from '../actionTypes';
+import { API_ENDPOINT, LOGIN } from '../../base';
+import { AUTHENTICATE, FETCHING, DEFAULT } from '../actionTypes';
 
 export const setAuthenticationStatus = () => {
     return {type: AUTHENTICATE};
+};
+
+export const setFetchingStatus = () => {
+    return {type: FETCHING};
 };
 
 export const authenticateLogin = (username, password) => {
@@ -10,11 +15,12 @@ export const authenticateLogin = (username, password) => {
         const { isAuthenticated } = getState().auth;
 
         if (!isAuthenticated) {
+            dispatch(setFetchingStatus());
             axios.defaults.withCredentials = true;
 
             return axios({
                 method: "POST",
-                url: "http://localhost:8080/api/v1/accounts/login",
+                url: `${API_ENDPOINT + LOGIN}`,
                 data: {
                     username: username,
                     password: password
@@ -22,6 +28,9 @@ export const authenticateLogin = (username, password) => {
             }).then(response => {
                 console.log(response);
                 dispatch(setAuthenticationStatus());
+                dispatch(setFetchingStatus());
+            }).catch(error => {
+                dispatch(setFetchingStatus());
             });
         }
     };

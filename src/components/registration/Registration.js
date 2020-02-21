@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Paper, FormGroup, TextField, Button, Typography, Grid } from '@material-ui/core';
 import { styles } from './styling/styles';
 
@@ -12,6 +13,8 @@ const Registration = () => {
     const [password, setPassword] = useState({value: null, error: false});
     const [confirmPassword, setConfirmPassword] = useState({value: null, error: false});
     const [birthday, setBirthday] = useState({value: null, error: false});
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const history = useHistory();
 
     const handleChange = (event) => {
         switch(event.target.id) {
@@ -102,6 +105,8 @@ const Registration = () => {
     };
 
     useEffect(() => {
+        if (isAuthenticated) history.push("/landing");
+
         return () => {
             setFirstName(null);
             setLastName(null);
@@ -230,6 +235,6 @@ const Registration = () => {
             </FormGroup>
         </Paper>
     );
-}
+};
 
 export default Registration;

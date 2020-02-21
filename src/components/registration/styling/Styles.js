@@ -2,9 +2,9 @@ export const styles = {
     container: {
         width: "40%",
         position: "absolute",
-        top: "15vh",
+        top: "50%",
         left: "50%", 
-        transform: "translateX(-50%)", //Left and transform properties to centre an absolutely positioned element
+        transform: "translate(-50%, -50%)", //Left/top and transform properties to centre an absolutely positioned element
         backgroundColor: "rgba(0, 0, 0, 0.3)"
     },
 
