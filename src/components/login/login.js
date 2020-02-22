@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { authenticateLogin } from '../../utils/redux/actions/authenticateActions';
+import authenticateLogin from '../../utils/redux/actions/authenticateActions';
 import { Paper, Container, FormGroup, Button, Typography} from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 import { styles, CssTextField} from './styling/styles';
@@ -52,7 +52,7 @@ const Login = () => {
     }, []);
 
     useEffect(() => {
-        if (isAuthenticated) history.push("/landing");
+        if (isAuthenticated) history.push("/home");
     }, [isFetching]);
 
     return (

@@ -105,7 +105,7 @@ const Registration = () => {
     };
 
     useEffect(() => {
-        if (isAuthenticated) history.push("/landing");
+        if (isAuthenticated) history.push("/home");
 
         return () => {
             setFirstName(null);

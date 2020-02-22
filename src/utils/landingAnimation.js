@@ -14,8 +14,12 @@ const setupAnimation = () => {
 
     //Browser size change requires to resize canvas and redraw animation
     document.body.onresize = () => {
-        document.getElementById("myCanvas").remove();
-        setupAnimation();
+        const canvas = document.getElementById("myCanvas");
+
+        if (canvas) {
+            canvas.remove();
+            setupAnimation();
+        }
     };
 
     //Setup scene

@@ -6,7 +6,7 @@ import ProtectedRoute from './components/common/protectedRoute/protectedRoute';
 import Game from './components/game/game';
 import Login from './components/login/login';
 import Registration from './components/registration/registration';
-import Landing from './components/landing/landing';
+import Home from './components/home/home';
 import './App.css';
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
 					<Route exact path="/" component={Login}/>
 					<Route exact path="/game" component={Game}/>
 					<Route exact path="/registration" component={Registration}/>
-					<ProtectedRoute exact path="/landing" component={Landing}/>
+					<ProtectedRoute exact path="/home" component={Home}/>
 				</Switch>
 			</Router>
 		</div>

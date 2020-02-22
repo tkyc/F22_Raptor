@@ -8,3 +8,4 @@ export const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 export const LOGIN = process.env.REACT_APP_API_LOGIN;
 export const REGISTRATION = process.env.REACT_APP_API_REGISTRATION;
 export const REFRESH = process.env.REACT_APP_API_REFRESH;
+export const USER_DETAILS = process.env.REACT_APP_API_USER_DETAILS;
