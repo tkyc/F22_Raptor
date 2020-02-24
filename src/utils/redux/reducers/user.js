@@ -1,7 +1,7 @@
 import { FETCH_DETAILS, USER_FETCHING, USER_ERROR } from '../actionTypes';
 
 const initialState = {
-    user: null,
+    details: null,
     isFetching: false,
     error: null
 };
@@ -11,17 +11,17 @@ const userDetailsReducer = (state = initialState, action) => {
         case FETCH_DETAILS:
             return {
                 ...state,
-                user: action.payload
+                details: action.payload
             };
         case USER_FETCHING:
             return {
                 ...state,
-                isFetching: !state.isFetching
+                isFetching: action.payload
             };
         case USER_ERROR:
             return {
                 ...state,
-                user: null,
+                details: null,
                 error: action.payload
             };
         default:

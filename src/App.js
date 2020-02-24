@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import setupAnimation from './utils/landingAnimation';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProtectedRoute from './components/common/protectedRoute/protectedRoute';
@@ -7,6 +7,7 @@ import Game from './components/game/game';
 import Login from './components/login/login';
 import Registration from './components/registration/registration';
 import Home from './components/home/home';
+import Navbar from './components/common/navbar/navbar'
 import './App.css';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
 
 	return (
 		<div className="App">
+			{isAuthenticated? <Navbar/> : null}
 			<Router>
 				<Switch>
 					<Route exact path="/" component={Login}/>

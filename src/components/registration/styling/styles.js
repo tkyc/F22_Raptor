@@ -1,4 +1,4 @@
-export const styles = {
+const styles = {
     container: {
         width: "40%",
         position: "absolute",
@@ -22,3 +22,5 @@ export const styles = {
         padding: "35px 35px 35px 35px"
     }
 };
+
+export default styles;

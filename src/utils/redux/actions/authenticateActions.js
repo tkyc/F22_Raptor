@@ -4,6 +4,7 @@ import { API_ENDPOINT, LOGIN } from '../../base';
 import { AUTHENTICATE, AUTH_FETCHING, AUTH_ERROR } from '../actionTypes';
 
 export const setAuthenticationStatus = () => {
+    setAccessToken(null); //On logout erase access token
     return {type: AUTHENTICATE};
 };
 
@@ -37,8 +38,8 @@ const authenticateLogin = (username, password) => {
             dispatch(setError(error));
         } finally {
             if (response) {
-                setAccessToken(response.data);
                 dispatch(setAuthenticationStatus());
+                setAccessToken(response.data);
             }
 
             dispatch(setFetchingStatus()); //Fetching is false

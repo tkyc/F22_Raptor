@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Paper, FormGroup, TextField, Button, Typography, Grid } from '@material-ui/core';
-import { styles } from './styling/styles';
+import styles from './styling/styles';
 
 const Registration = () => {
 

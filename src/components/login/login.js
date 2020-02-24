@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import authenticateLogin from '../../utils/redux/actions/authenticateActions';
 import { Paper, Container, FormGroup, Button, Typography} from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
-import { styles, CssTextField} from './styling/styles';
+import styles, { CssTextField} from './styling/styles';
 import Loader from '../common/loader/loader';
 
 const Login = () => {

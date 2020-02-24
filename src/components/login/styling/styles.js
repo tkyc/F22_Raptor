@@ -8,7 +8,7 @@ export const CssTextField = withStyles({
     }
 })(TextField);
 
-export const styles = {
+const styles = {
     container: {
         position: "absolute",
         top: "25vh",
@@ -42,3 +42,5 @@ export const styles = {
         display: "inline"
     }
 };
+
+export default styles;

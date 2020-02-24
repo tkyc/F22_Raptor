@@ -8,8 +8,8 @@ const setUserDetails = (userDetails) => {
     return {type: FETCH_DETAILS, payload: userDetails};
 };
 
-const setFetchingStatus = () => {
-    return {type: USER_FETCHING};
+const setFetchingStatus = (fetch) => {
+    return {type: USER_FETCHING, payload: fetch};
 };
 
 const setError = (error) => {
@@ -20,7 +20,7 @@ const fetchUserDetails = () => {
     return async (dispatch, state) => {
         let response;
 
-        dispatch(setFetchingStatus()); //Fetching is true
+        dispatch(setFetchingStatus(true));
         createRefreshInterceptor(axios, () => dispatch(setAuthenticationStatus()));
 
         try {
@@ -30,10 +30,15 @@ const fetchUserDetails = () => {
                 headers: {"authorization": `Bearer ${accessToken}`}
             });
         } catch (error) {
-            if (!accessToken) dispatch(setError(error));
+            //if (!accessToken && !state.user.details) dispatch(setError(error));
+            dispatch(setError(error));
         } finally {
-            if (response) dispatch(setUserDetails(response.data));
-            dispatch(setFetchingStatus()); //Fetching is false
+            if (response) {
+                dispatch(setError(null)); //Successfull response, erase previous error
+                dispatch(setUserDetails(response.data));
+            }
+
+            dispatch(setFetchingStatus(false));
         }
     }
 };
