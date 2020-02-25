@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import authenticateLogin from '../../utils/redux/actions/authenticateActions';
 import { Paper, Container, FormGroup, Button, Typography} from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
-import styles, { CssTextField} from './styling/styles';
 import Loader from '../common/loader/loader';
+import styles, { CssTextField} from './styling/styles';
 
 const Login = () => {
 
@@ -38,11 +38,11 @@ const Login = () => {
 
     const validateUsername = (value) => {
         return !value;
-    }
+    };
 
     const validatePassword = (value) => {
         return !value;
-    }
+    };
 
     useEffect(() => {
         return () => {
@@ -56,7 +56,7 @@ const Login = () => {
     }, [isFetching]);
 
     return (
-        isFetching ? <Loader/> :
+        isFetching? <Loader/> :
         <Container maxWidth="xs" style={styles.container}>
             <Paper style={styles.playPaperBox}>
                 <FormGroup>

@@ -59,6 +59,14 @@ const styles = {
 	
 	profileIconContainer: {
 		paddingRight: "1em"
+	},
+
+	profileListItemText: {
+		marginRight: "1em"
+	},
+
+	statusMenuListItem: {
+		textAlign: "center"
 	}
 };
 

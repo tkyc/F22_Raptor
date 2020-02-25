@@ -5,7 +5,9 @@ import { styles } from './styling/styles';
 const Loader = () => {
 
     return (
-        <CircularProgress style={styles.container}/>
+        <div style={styles.container}>
+            <CircularProgress style={styles.progress} color="secondary"/>
+        </div>
     );
 };
 
