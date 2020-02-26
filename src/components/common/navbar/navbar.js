@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; import { useDispatch, useSelector } from 'react-redux';
 import { setAuthenticationStatus } from '../../../utils/redux/actions/authenticateActions';
 import fetchUserDetails from '../../../utils/redux/actions/userDetailsActions';
-import { AppBar, Toolbar, Badge, Typography, Menu, List, IconButton, Avatar, ListItem, ListItemText, ListItemIcon, Collapse } from '@material-ui/core';
+import { AppBar, Toolbar, Badge, Typography, Menu, List, IconButton, Avatar, ListItem, ListItemText, Collapse, Box } from '@material-ui/core';
 import { StyledBadge } from './styling/styles';
 import { MailRounded, Notifications, ExitToApp, Settings, AccountCircle, EqualizerTwoTone, ExpandLess, ExpandMore, More } from '@material-ui/icons';
 import styles from './styling/styles';
@@ -68,7 +68,7 @@ const Navbar = () => {
                     (_ => {
                         const statuses = ["Online-menu-item", "Busy-menu-item", "Away-menu-item"];
                         return statuses.map((status, index) => (
-                            <ListItem button>
+                            <ListItem button key={index}>
                                 <ListItemText id={status} style={styles.statusMenuListItem} onClick={handleStatusMenuOpen} key={index}>{status.split("-")[0]}</ListItemText>
                             </ListItem>
                         ));
@@ -138,7 +138,9 @@ const Navbar = () => {
         <AppBar style={styles.container}
                 color="inherit">
             <Toolbar>
-                <Typography variant="h6" style={styles.typography}>FLIGHT DECK</Typography>
+                <Box display={{xs: "none", md: "block"}} style={styles.title}>
+                    <Typography variant="h5" >FLIGHT DECK</Typography>
+                </Box>
                 {badges()}
             </Toolbar>
         </AppBar>

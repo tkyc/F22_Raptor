@@ -1,16 +1,114 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import fetchUserDetails from '../../utils/redux/actions/userDetailsActions';
-import { Grid, Paper } from '@material-ui/core';
-import ProfileCard from './profileCard/profileCard';
+import { Grid, Paper, Box, Typography, Tab, Tabs, AppBar, ListItem, List, Divider, Button } from '@material-ui/core';
+import Carousel from 'react-material-ui-carousel';
 import Loader from '../common/loader/loader';
 import styles from './styling/styles';
+import NewsItem from './newsItem/NewsItem';
 
 const Home = () => {
 
+    const [tab, setTab] = useState(0);
     const userDetails = useSelector(state => state.user.details);
     const isFetching = useSelector(state => state.user.isFetching);
+    //TODO: Make api calls to fetch items
+    const newsItems = [{image: "/images/0.png", title: "Itaque earum rerum error voloptatem", date: "1 January 2025"},
+                       {image: "/images/1.png", title: "Facere possimus eum iure", date: "2 January 2025"},
+                       {image: "/images/2.png", title: "Tenetur a sapiente delectus", date: "3 January 2025"}];
+    const carouselItems = [{path: "/images/0.png",
+                            title: "Finibus Bonorum",
+                            content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque"},
+                           {path: "/images/1.png",
+                            title: "Xcepteur Sint",
+                            content: "At vero eos et accusamus et iusto odio dignissimos ducimus qui quod maxime placeat facere possimus eum iure reprehenderit qui in ea voluptate"},
+                           {path: "/images/2.png",
+                            title: "Optio Cumque",
+                            content: "Itaque earum rerum hic tenetur a sapiente delectus voluptatum deleniti atque corrupti"}];
     const dispatch = useDispatch();
+
+    const handleTabSwitch = (event, tab) => {
+        setTab(tab);
+    };
+
+    const a11yProps = (index) => {
+        return {
+            id: `scrollable-auto-tab-${index}`,
+            'aria-controls': `scrollable-auto-tabpanel-${index}`,
+        };
+    };
+
+    const TabPanel = (props) => {
+        const { children, value, index, ...other } = props;
+        
+        return (
+            <Typography component="div"
+                        role="tabpanel"
+                        hidden={value !== index}
+                        id={`scrollable-auto-tabpanel-${index}`}
+                        aria-labelledby={`scrollable-auto-tab-${index}`}
+                        {...other}>
+
+                {value === index && <Box p={3}>{children}</Box>}
+            </Typography>
+        );
+    };
+
+    const jumbotronCarousel = (items) => (
+        <Box display={{xs: "none", md: "none", lg: "block"}}>
+            <Carousel>
+                {
+                    items.map((element, index) => (
+                        <div style={styles.jumbotronCarousel} key={index}>
+                            <div style={styles.jumbotronCarouselText} key={index}>
+                                <div style={styles.jumbotronCarouselTextH3}>
+                                    <Typography variant="h3">{element.title}</Typography>
+                                </div>
+                                <div style={styles.jumbotronCarouselTextH5}>
+                                    <Typography variant="h5">{element.content}</Typography>
+                                </div>
+                            </div>
+                            <div style={styles.jumbotronCarouselImages(element.path)} src={element}/>
+                        </div>
+                    ))
+                }
+            </Carousel>
+        </Box>
+    );
+
+    const newsContent = (
+        <TabPanel value={tab} index={0}>
+            <List>
+                {
+                    newsItems.map((element, index) => (
+                        <ListItem style={styles.newsItem} key={index}><NewsItem {...element}/></ListItem>
+                    ))
+                }
+            </List>
+        </TabPanel>
+    );
+
+    const gameContent = (
+        <TabPanel value={tab} index={1}>
+            <Button style={styles.launchBtn} variant="contained" color="primary">LAUNCH</Button>
+        </TabPanel>
+    );
+
+    const heroContent = (
+        <div>
+            <AppBar style={styles.heroTabBar} position="static">
+                <Tabs value={tab}
+                      onChange={handleTabSwitch}
+                      variant="scrollable"
+                      scrollButtons="auto">
+                    <Tab label="NEWS" {...a11yProps(0)}/>
+                    <Tab label="GAME" {...a11yProps(1)}/>
+                </Tabs>
+            </AppBar>
+            {newsContent}
+            {gameContent}
+        </div>
+    );
 
     useEffect(() => {
         //Incase another component makes the call
@@ -19,14 +117,26 @@ const Home = () => {
 
     return (
         isFetching || !userDetails? <Loader/> :
-        <Grid container spacing={3} style={styles.container}>
-            <Grid item xs={3}>
+        <div style={styles.container}>
+            <Paper style={styles.jumbotronContainer} elevation={24} square>
+                {jumbotronCarousel(carouselItems)}
+            </Paper>
+            <Grid container spacing={3}>
+                <Grid item xs={3}>
+                    <Paper style={styles.homeContentContainer} elevation={15} square>
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper style={styles.homeContentContainer} elevation={15} square>
+                        {heroContent}
+                    </Paper>
+                </Grid>
+                <Grid item xs={3}>
+                    <Paper style={styles.homeContentContainer} elevation={15} square>
+                    </Paper>
+                </Grid>
             </Grid>
-            <Grid item xs={6}>
-            </Grid>
-            <Grid item xs={3}>
-            </Grid>
-        </Grid>
+        </div>
     );
 };
 

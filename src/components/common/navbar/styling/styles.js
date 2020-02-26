@@ -32,10 +32,10 @@ export const StyledBadge = withStyles(theme => ({
 
 const styles = {
     container: {
-        backgroundColor: "#424949"
+        backgroundColor: "#17202a"
     },
 
-    typography: {
+    title: {
         color: "#abb2b9",
         position: "absolute",
         left: "0em",

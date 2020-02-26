@@ -1,8 +1,7 @@
 export const styles = {
     container: {
         height: "30em",
-        width: "100%",
-        backgroundColor: "#424949"
+        width: "100%"
     },
 
     picture: {
