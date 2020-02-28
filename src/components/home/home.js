@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import fetchUserDetails from '../../utils/redux/actions/userDetailsActions';
-import { Grid, Paper, Box, Typography, Tab, Tabs, AppBar, ListItem, List, Divider, Button } from '@material-ui/core';
+import { Grid, Paper, Box, Typography, Tab, Tabs, AppBar, ListItem, List, Button, useMediaQuery, Divider, Hidden } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
 import Loader from '../common/loader/loader';
 import styles from './styling/styles';
@@ -55,7 +55,7 @@ const Home = () => {
     };
 
     const jumbotronCarousel = (items) => (
-        <Box display={{xs: "none", md: "none", lg: "block"}}>
+        <Box display={{xs: "none", md: "block", lg: "block"}}>
             <Carousel>
                 {
                     items.map((element, index) => (
@@ -117,21 +117,23 @@ const Home = () => {
 
     return (
         isFetching || !userDetails? <Loader/> :
-        <div style={styles.container}>
+        <div>
             <Paper style={styles.jumbotronContainer} elevation={24} square>
                 {jumbotronCarousel(carouselItems)}
             </Paper>
-            <Grid container spacing={3}>
-                <Grid item xs={3}>
-                    <Paper style={styles.homeContentContainer} elevation={15} square>
-                    </Paper>
-                </Grid>
-                <Grid item xs={6}>
+            <Grid style={styles.contentContainer} container spacing={2}>
+                <Hidden smDown>
+                    <Grid item xs={12} sm={12} md={3}>
+                        <Paper style={styles.homeContentContainer} elevation={15} square>
+                        </Paper>
+                    </Grid>
+                </Hidden>
+                <Grid item xs={12} sm={12} md={6}>
                     <Paper style={styles.homeContentContainer} elevation={15} square>
                         {heroContent}
                     </Paper>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12} sm={12} md={3}>
                     <Paper style={styles.homeContentContainer} elevation={15} square>
                     </Paper>
                 </Grid>

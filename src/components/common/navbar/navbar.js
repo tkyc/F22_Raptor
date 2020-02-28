@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'; import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'; import { useDispatch, useSelector } from 'react-redux';
 import { setAuthenticationStatus } from '../../../utils/redux/actions/authenticateActions';
 import fetchUserDetails from '../../../utils/redux/actions/userDetailsActions';
 import { AppBar, Toolbar, Badge, Typography, Menu, List, IconButton, Avatar, ListItem, ListItemText, Collapse, Box } from '@material-ui/core';
 import { StyledBadge } from './styling/styles';
-import { MailRounded, Notifications, ExitToApp, Settings, AccountCircle, EqualizerTwoTone, ExpandLess, ExpandMore, More } from '@material-ui/icons';
+import { MailRounded, Notifications, ExitToApp, Settings, AccountCircle, EqualizerTwoTone, ExpandLess, ExpandMore, MenuOutlined, More } from '@material-ui/icons';
 import styles from './styling/styles';
 
 const Navbar = () => {
@@ -23,6 +23,10 @@ const Navbar = () => {
             case "Status-menu-item":
                 setStatusMenu(!isStatusMenuOpen);
                 return;
+            case "Messages-menu-item":
+                break;
+            case "Notifications-menu-item":
+                break;
             case "Profile-menu-item":
                 break;
             case "Settings-menu-item":
@@ -89,9 +93,19 @@ const Navbar = () => {
                   <ListItem button id="Status-menu-item" onClick={handleProfileMenuClose}>
                       <div style={styles.profileIconContainer}><EqualizerTwoTone/></div>
                       <ListItemText style={styles.profileListItemText}>Status</ListItemText>
-                      {isStatusMenuOpen? <ExpandMore/> : <ExpandLess/>}
+                      {isStatusMenuOpen? <ExpandLess/> : <ExpandMore/>}
                   </ListItem>
                   {statusMenu}
+                  <Box display={{xs: "block", sm: "block", md: "block", lg: "none", xlg: "none"}}>
+                      <ListItem button id="Messages-menu-item" onClick={handleProfileMenuClose}>
+                          <div style={styles.profileIconContainer}><MailRounded/></div>
+                          <ListItemText style={styles.profileListItemText}>Messages</ListItemText>
+                      </ListItem>
+                      <ListItem button id="Notifications-menu-item" onClick={handleProfileMenuClose}>
+                          <div style={styles.profileIconContainer}><Notifications/></div>
+                          <ListItemText style={styles.profileListItemText}>Notfications</ListItemText>
+                      </ListItem>
+                  </Box>
                   {
                       (_ => {
                           const menuItems = [
@@ -111,22 +125,34 @@ const Navbar = () => {
 
     const badges = () => (
         <div style={styles.badgeContainer}>
-            <IconButton>
-                <Badge>
-                    <MailRounded style={styles.icon}/>
-                </Badge>
-            </IconButton>
-            <IconButton>
-                <Badge>
-                    <Notifications style={styles.icon}/>
-                </Badge> </IconButton>
+            <div style={styles.mobileViewIcons}>
+                <Box display={{xs: "none", sm: "none", md: "none", lg: "block", xlg: "block"}}>
+                    <IconButton>
+                        <Badge>
+                            <MailRounded style={styles.icon}/>
+                        </Badge>
+                    </IconButton>
+                    <IconButton>
+                        <Badge>
+                            <Notifications style={styles.icon}/>
+                        </Badge>
+                    </IconButton>
+                </Box>
+            </div>
             <IconButton onClick={handleProfileMenuOpen}>
-                <StyledBadge id="profile-badge" anchorOrigin={{vertical: "bottom", horizontal: "right"}} overlap="circle" variant="dot">
-                    <Avatar src={userDetails.picture? userDetails.picture : null} style={styles.picture}>
-                        {(_ => `${userDetails.firstname.charAt(0)}`)()}
-                    </Avatar>
-                    {profileMenu}
-                </StyledBadge>
+                <Box display={{xs: "none", sm: "none", md: "block"}}>
+                    <StyledBadge id="profile-badge" anchorOrigin={{vertical: "bottom", horizontal: "right"}} overlap="circle" variant="dot">
+                        <Avatar src={userDetails.picture? userDetails.picture : null} style={styles.picture}>
+                            {(_ => `${userDetails.firstname.charAt(0)}`)()}
+                        </Avatar>
+                    </StyledBadge>
+                </Box>
+                <Box display={{xs: "block", sm: "block", md: "none"}}>
+                    <Badge>
+                        <MenuOutlined style={styles.icon}/>
+                    </Badge>
+                </Box>
+                {profileMenu}
             </IconButton>
         </div>
     );
@@ -138,9 +164,14 @@ const Navbar = () => {
         <AppBar style={styles.container}
                 color="inherit">
             <Toolbar>
-                <Box display={{xs: "none", md: "block"}} style={styles.title}>
-                    <Typography variant="h5" >FLIGHT DECK</Typography>
-                </Box>
+                <div style={styles.logoContainer}>
+                    <img style={styles.logoSymbol} src="/images/logo.png"/>
+                    <div style={styles.logoTextContainer}>
+                        <Box display={{xs: "none", sm: "block", md: "block"}}>
+                            <Typography variant="h5" >FLIGHT DECK</Typography>
+                        </Box>
+                    </div>
+                </div>
                 {badges()}
             </Toolbar>
         </AppBar>

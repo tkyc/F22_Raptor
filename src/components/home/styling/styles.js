@@ -1,14 +1,14 @@
 const styles = {
-    container: {
-        margin: "8em 0 8em 0",
-        padding: "0 10em 0 10em"
+    contentContainer: {
+        padding: "0 1.5em 0 1.5em",
+        marginBottom: "4em"
     },
 
     jumbotronContainer: {
         height: "100%",
         width: "100%",
         backgroundColor: "#17202a",
-        marginBottom: "4em"
+        margin: "4em 0 4em 0"
     },
 
     jumbotronCarousel: {

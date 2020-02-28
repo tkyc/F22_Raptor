@@ -35,13 +35,6 @@ const styles = {
         backgroundColor: "#17202a"
     },
 
-    title: {
-        color: "#abb2b9",
-        position: "absolute",
-        left: "0em",
-        margin: "0 0 0 15vw"
-    },
-
     icon: {
         color: "#abb2b9"
     },
@@ -49,7 +42,7 @@ const styles = {
     badgeContainer: {
         position: "absolute",
         right: "0em",
-        margin: "0 15vw 0 0"
+        margin: "0 7vw 0 0"
     },
 
     picture: {
@@ -67,6 +60,28 @@ const styles = {
 
 	statusMenuListItem: {
 		textAlign: "center"
+	},
+
+	mobileViewIcons: {
+		display: "inline-block"
+	},
+
+	logoSymbol: {
+		width: "2.5em",
+		height: "2em",
+		display: "inline-block",
+		marginRight: "1em"
+	},
+
+	logoTextContainer: {
+		display: "inline-block"
+	},
+
+	logoContainer: {
+        color: "#abb2b9",
+        position: "absolute",
+        left: "0em",
+        margin: "0 0 0 7vw"
 	}
 };
 
