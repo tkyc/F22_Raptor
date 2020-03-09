@@ -9,13 +9,19 @@ const setupAnimation = () => {
     //Setup canvas
     const canvas = document.createElement("canvas");
     canvas.style.display = "block";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
     canvas.id = "myCanvas";
     document.body.appendChild(canvas);
 
     //Browser size change requires to resize canvas and redraw animation
     document.body.onresize = () => {
-        document.getElementById("myCanvas").remove();
-        setupAnimation();
+        const canvas = document.getElementById("myCanvas");
+
+        if (canvas) {
+            canvas.remove();
+            setupAnimation();
+        }
     };
 
     //Setup scene
