@@ -9,6 +9,8 @@ const setupAnimation = () => {
     //Setup canvas
     const canvas = document.createElement("canvas");
     canvas.style.display = "block";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
     canvas.id = "myCanvas";
     document.body.appendChild(canvas);
 

@@ -33,7 +33,7 @@ const Navbar = () => {
                 break;
             case "Logout-menu-item":
                 dispatch(setAuthenticationStatus());
-                break;
+                return;
             default:
         }
 
@@ -167,9 +167,7 @@ const Navbar = () => {
                 <div style={styles.logoContainer}>
                     <img style={styles.logoSymbol} src="/images/logo.png"/>
                     <div style={styles.logoTextContainer}>
-                        <Box display={{xs: "none", sm: "block", md: "block"}}>
-                            <Typography variant="h5" >FLIGHT DECK</Typography>
-                        </Box>
+                        <Typography variant="h5" >FLIGHT DECK</Typography>
                     </div>
                 </div>
                 {badges()}

@@ -54,8 +54,10 @@ const styles = {
     },
 
     launchBtn: {
-        width: "30em",
-        height: "10em"
+        width: "50%",
+        height: "5em",
+        marginTop: "5em",
+        backgroundColor: "#17202a"
     }
 };
 

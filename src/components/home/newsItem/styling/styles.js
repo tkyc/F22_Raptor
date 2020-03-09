@@ -30,12 +30,12 @@ const styles = {
         borderRadius: "5px",
         border: "0",
         display: "inline-block",
-        width: "37%"
+        width: "39%"
     },
 
     logo: {
-        width: "2.5em",
-        height: "2em",
+        width: "2em",
+        height: "1.5em",
         display: "inline-block"
     }
 };

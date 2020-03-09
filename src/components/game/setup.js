@@ -5,23 +5,33 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Water } from 'three/examples/jsm/objects/Water';
 import Jet from '../../models/jet';
 
-const scene = new THREE.Scene();
-const loader = new GLTFLoader();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const canvas = document.createElement("canvas");
-
 export const setupScene = () => {
+    const scene = new THREE.Scene();
+    const loader = new GLTFLoader();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const canvas = document.createElement("canvas");
+
     canvas.style.display = "block";
-    canvas.id = "myCanvas";
+    canvas.id = "gameCanvas";
     document.body.appendChild(canvas);
+
+    //Browser size change requires to resize canvas and redraw animation
+    document.body.onresize = () => {
+        const canvas = document.getElementById("gameCanvas");
+
+        if (canvas) {
+            canvas.remove();
+            setupScene();
+        }
+    };
 
     //Setup webGL renderer
     let renderer = new THREE.WebGLRenderer({
-        canvas: document.getElementById("myCanvas"),
+        canvas: document.getElementById("gameCanvas"),
         antialias: true
     });
 
-    let controls = new OrbitControls(camera, document.getElementById("myCanvas"));
+    let controls = new OrbitControls(camera, document.getElementById("gameCanvas"));
     controls.minDistance = 1;
     controls.maxDistance = 400;
     
@@ -31,9 +41,9 @@ export const setupScene = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     //Load models, environment, lighting and animate
-    loadLighting();
-    loadModels();
-    loadDayEnvironment();
+    loadLighting(scene);
+    loadModels(scene, loader);
+    loadDayEnvironment(scene);
 
     const animate = () => {
         requestAnimationFrame(animate);
@@ -42,7 +52,7 @@ export const setupScene = () => {
     animate();
 };
 
-const loadModels = () => {
+const loadModels = (scene, loader) => {
     const raptor = new Jet("/models/F22_Raptor/scene.gltf",   //Model path
                            {xpos: 0, ypos: -0.2, zpos: -3},   //Initial position
                            {xrot: 0, yrot: 1.56, zrot: 0},    //Initial orientation
@@ -53,7 +63,7 @@ const loadModels = () => {
                             });
 };
 
-const loadDayEnvironment = () => {
+const loadDayEnvironment = (scene) => {
     let dayEnvironmentMaterials = [
         new THREE.MeshPhongMaterial({map: new TGALoader().load("/environment/miramar_ft.tga"), side: THREE.BackSide}),
         new THREE.MeshPhongMaterial({map: new TGALoader().load("/environment/miramar_bk.tga"), side: THREE.BackSide}),
@@ -66,10 +76,10 @@ const loadDayEnvironment = () => {
     let geometry = new THREE.BoxGeometry(1000, 1000, 1000);
     let skybox = new THREE.Mesh(geometry, dayEnvironmentMaterials);
     scene.add(skybox);
-    loadOcean();
+    loadOcean(scene);
 };
 
-const loadNightEnvironment = () => {
+const loadNightEnvironment = (scene) => {
     let nightEnvironmentMaterials = [
         new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("/environment/nightsky_ft.png"), side: THREE.BackSide}),
         new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("/environment/nightsky_bk.png"), side: THREE.BackSide}),
@@ -84,7 +94,7 @@ const loadNightEnvironment = () => {
     scene.add(skybox);
 };
 
-const loadLighting = () => {
+const loadLighting = (scene) => {
     let light0 = new THREE.AmbientLight(0xffffff, 0.5);   //Create equal lighting in scene
     let light1 = new THREE.PointLight(0xffffff, 0.5);     //Radiate light from single point
     let light2 = new THREE.DirectionalLight(0xffffff, 2); //Light coming directly above (0, 1, 0) - set vector to change
@@ -94,7 +104,7 @@ const loadLighting = () => {
     scene.add(light2);
 };
 
-const loadOcean = () => {
+const loadOcean = (scene) => {
     let sunlight = new THREE.DirectionalLight(0xffffff, 2);
     let waterGeometry = new THREE.PlaneBufferGeometry(1000, 1000);
     let water = new Water(waterGeometry, {

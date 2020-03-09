@@ -1,10 +1,13 @@
 const styles = {
     container: {
-        width: "40%",
         position: "absolute",
-        top: "50%",
-        left: "50%", 
-        transform: "translate(-50%, -50%)", //Left/top and transform properties to centre an absolutely positioned element
+        width: "75%",
+        height: "75%",
+        marginTop: "5%",
+        left: "12.5%"
+    },
+
+    forum: {
         backgroundColor: "rgba(0, 0, 0, 0.3)"
     },
 

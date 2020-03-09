@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 import fetchUserDetails from '../../utils/redux/actions/userDetailsActions';
 import { Grid, Paper, Box, Typography, Tab, Tabs, AppBar, ListItem, List, Button, useMediaQuery, Divider, Hidden } from '@material-ui/core';
 import Carousel from 'react-material-ui-carousel';
@@ -26,9 +27,14 @@ const Home = () => {
                             title: "Optio Cumque",
                             content: "Itaque earum rerum hic tenetur a sapiente delectus voluptatum deleniti atque corrupti"}];
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleTabSwitch = (event, tab) => {
         setTab(tab);
+    };
+
+    const launchGame = () => {
+        history.push("/game");
     };
 
     const a11yProps = (index) => {
@@ -90,7 +96,7 @@ const Home = () => {
 
     const gameContent = (
         <TabPanel value={tab} index={1}>
-            <Button style={styles.launchBtn} variant="contained" color="primary">LAUNCH</Button>
+            <Button style={styles.launchBtn} variant="contained" color="primary" onClick={launchGame}>LAUNCH</Button>
         </TabPanel>
     );
 

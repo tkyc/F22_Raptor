@@ -119,121 +119,123 @@ const Registration = () => {
     }, []);
 
     return (
-        <Paper style={styles.container}>
-            <FormGroup>
-                <Grid container spacing={3} style={styles.grid}>
-                    <Grid item xs={6}>
-                        <TextField
-                            id="firstname-input"
-                            label="First name"
-                            type="text"
-                            margin="normal"
-                            variant="standard"
-                            fullWidth={true}
-                            required={true}
-                            onChange={handleChange}
-                            error={firstName.error}>
-                        </TextField>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            id="lastname-input"
-                            label="Last name"
-                            type="text"
-                            margin="normal"
-                            variant="standard"
-                            fullWidth={true}
-                            required={true}
-                            onChange={handleChange}
-                            error={lastName.error}>
-                        </TextField>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            id="email-input"
-                            label="Email"
-                            type="email"
-                            margin="normal"
-                            variant="standard"
-                            fullWidth={true}
-                            required={true}
-                            onChange={handleChange}
-                            error={email.error}>
-                        </TextField>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            id="username-input"
-                            label="Username"
-                            type="text"
-                            margin="normal"
-                            variant="standard"
-                            fullWidth={true}
-                            required={true}
-                            onChange={handleChange}
-                            error={username.error}>
-                        </TextField>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            id="password-input"
-                            label="Password"
-                            type="password"
-                            margin="normal"
-                            variant="standard"
-                            fullWidth={true}
-                            required={true}
-                            onChange={handleChange}
-                            error={password.error}>
-                        </TextField>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            id="confirm-password-input"
-                            label="Confirm"
-                            type="password"
-                            margin="normal"
-                            variant="standard"
-                            fullWidth={true}
-                            required={true}
-                            onChange={handleChange}
-                            error={confirmPassword.error}>
-                        </TextField>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            id="birthday-input"
-                            label="Birthday"
-                            type="date"
-                            margin="normal"
-                            variant="standard"
-                            fullWidth={true}
-                            required={true}
-                            InputLabelProps={{
-                                shrink: true
-                            }}
-                            onChange={handleChange}
-                            error={birthday.error}>
-                        </TextField>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Grid container item>
-                            <Typography><Link style={styles.styledLink} to="/">Already have an account?</Link></Typography>
+        <div style={styles.container}>
+            <Paper style={styles.forum}>
+                <FormGroup>
+                    <Grid container spacing={3} style={styles.grid}>
+                        <Grid item xs={6}>
+                            <TextField
+                                id="firstname-input"
+                                label="First name"
+                                type="text"
+                                margin="normal"
+                                variant="standard"
+                                fullWidth={true}
+                                required={true}
+                                onChange={handleChange}
+                                error={firstName.error}>
+                            </TextField>
                         </Grid>
-                        <Grid container item justify="flex-end">
-                            <Button
-                                id="signup-submit-button"
-                                variant="contained"
-                                color="inherit"
-                                style={styles.submitButton}
-                                onClick={registerUser}>
-                                Submit
-                            </Button>
+                        <Grid item xs={6}>
+                            <TextField
+                                id="lastname-input"
+                                label="Last name"
+                                type="text"
+                                margin="normal"
+                                variant="standard"
+                                fullWidth={true}
+                                required={true}
+                                onChange={handleChange}
+                                error={lastName.error}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="email-input"
+                                label="Email"
+                                type="email"
+                                margin="normal"
+                                variant="standard"
+                                fullWidth={true}
+                                required={true}
+                                onChange={handleChange}
+                                error={email.error}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="username-input"
+                                label="Username"
+                                type="text"
+                                margin="normal"
+                                variant="standard"
+                                fullWidth={true}
+                                required={true}
+                                onChange={handleChange}
+                                error={username.error}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                id="password-input"
+                                label="Password"
+                                type="password"
+                                margin="normal"
+                                variant="standard"
+                                fullWidth={true}
+                                required={true}
+                                onChange={handleChange}
+                                error={password.error}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                id="confirm-password-input"
+                                label="Confirm"
+                                type="password"
+                                margin="normal"
+                                variant="standard"
+                                fullWidth={true}
+                                required={true}
+                                onChange={handleChange}
+                                error={confirmPassword.error}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="birthday-input"
+                                label="Birthday"
+                                type="date"
+                                margin="normal"
+                                variant="standard"
+                                fullWidth={true}
+                                required={true}
+                                InputLabelProps={{
+                                    shrink: true
+                                }}
+                                onChange={handleChange}
+                                error={birthday.error}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid container item>
+                                <Typography><Link style={styles.styledLink} to="/">Already have an account?</Link></Typography>
+                            </Grid>
+                            <Grid container item justify="flex-end">
+                                <Button
+                                    id="signup-submit-button"
+                                    variant="contained"
+                                    color="inherit"
+                                    style={styles.submitButton}
+                                    onClick={registerUser}>
+                                    Submit
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-            </FormGroup>
-        </Paper>
+                </FormGroup>
+            </Paper>
+        </div>
     );
 };
 
