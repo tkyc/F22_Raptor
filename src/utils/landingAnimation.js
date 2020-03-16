@@ -9,12 +9,12 @@ const setupAnimation = () => {
     //Setup canvas
     const canvas = document.createElement("canvas");
     canvas.style.display = "block";
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
+    canvas.style.width = "100vw";
+    canvas.style.height = "100vh";
     canvas.id = "myCanvas";
     document.body.appendChild(canvas);
 
-    //Browser size change requires to resize canvas and redraw animation
+    //Browser size change requires to resize canvas and redraw animation (Redrawing causes performance issues)
     document.body.onresize = () => {
         const canvas = document.getElementById("myCanvas");
 

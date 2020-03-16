@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import setupAnimation from './utils/landingAnimation';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import ProtectedRoute from './components/common/protectedRoute/protectedRoute';
 import Game from './components/game/game';
 import Login from './components/login/login';
@@ -14,7 +14,7 @@ const App = () => {
 
 	const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
-	//When authenticated, removes animations from app
+	//When authenticated, remove landing animation from app
 	useEffect(() => {
 		if (!isAuthenticated) {
 			setupAnimation();
@@ -27,14 +27,12 @@ const App = () => {
 	return (
 		<div className="App">
 			{isAuthenticated? <Navbar/> : null}
-			<Router>
-				<Switch>
-					<Route exact path="/" component={Login}/>
-					<Route exact path="/registration" component={Registration}/>
-					<ProtectedRoute exact path="/game" component={Game}/>
-					<ProtectedRoute exact path="/home" component={Home}/>
-				</Switch>
-			</Router>
+			<Switch>
+				<Route exact path="/" component={Login}/>
+				<Route exact path="/registration" component={Registration}/>
+				<ProtectedRoute exact path="/game" component={Game}/>
+				<ProtectedRoute exact path="/home" component={Home}/>
+			</Switch>
 		</div>
 	);
 }

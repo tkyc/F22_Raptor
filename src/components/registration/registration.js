@@ -1,109 +1,203 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Paper, FormGroup, TextField, Button, Typography, Grid } from '@material-ui/core';
-import styles from './styling/styles';
+import { Grid } from '@material-ui/core';
+import { MyCssTextField, MyCssContainer, MyCssNavLink, CssButton } from './styling/styles';
 
+/**
+ * Registration component. The form with input fields.
+ * Animation is rendered on application mount in App.js.
+ */
 const Registration = () => {
 
-    const [firstName, setFirstName] = useState({value: null, error: false});
-    const [lastName, setLastName] = useState({value: null, error: false});
-    const [email, setEmail] = useState({value: null, error: false});
-    const [username, setUsername] = useState({value: null, error: false});
-    const [password, setPassword] = useState({value: null, error: false});
-    const [confirmPassword, setConfirmPassword] = useState({value: null, error: false});
-    const [birthday, setBirthday] = useState({value: null, error: false});
+    /**
+     * First name field.
+     * value - Input from first name field.
+     * error - Boolean indicating error.
+     * helperText - Error messsage.
+     */
+    const [firstName, setFirstName] = useState({value: null, error: false, helperText: null});
+
+    /**
+     * Last name field.
+     * value - Input from last name field.
+     * error - Boolean indicating error.
+     * helperText - Error messsage.
+     */
+    const [lastName, setLastName] = useState({value: null, error: false, helperText: null});
+
+    /**
+     * Email field.
+     * value - Input from email field.
+     * error - Boolean indicating error.
+     * helperText - Error messsage.
+     */
+    const [email, setEmail] = useState({value: null, error: false, helperText: null});
+
+    /**
+     * Username field.
+     * value - Input from username field.
+     * error - Boolean indicating error.
+     * helperText - Error messsage.
+     */
+    const [username, setUsername] = useState({value: null, error: false, helperText: null});
+
+    /**
+     * Password field.
+     * value - Input from password field.
+     * error - Boolean indicating error.
+     * helperText - Error messsage.
+     */
+    const [password, setPassword] = useState({value: null, error: false, helperText: null});
+
+    /**
+     * Confirm password field.
+     * value - Input from confirm password field.
+     * error - Boolean indicating error.
+     * helperText - Error messsage.
+     */
+    const [confirmPassword, setConfirmPassword] = useState({value: null, error: false, helperText: null});
+
+    /**
+     * Birthday field.
+     * value - Input from birthday field.
+     * error - Boolean indicating error.
+     * helperText - Error messsage.
+     */
+    const [birthday, setBirthday] = useState({value: null, error: false, helperText: null});
+
+    /**
+     * Boolean from redux store that indicates whether the user was authenticated.
+     */
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+    /**
+     * Object that contains URLs visited by user.
+     */
     const history = useHistory();
 
-    const handleChange = (event) => {
-        switch(event.target.id) {
-            case "firstname-input":
-                setFirstName({
-                    value: event.target.value, 
-                    error: validateFirstNameField(event.target.value)
-                });
-                break;
-            case "lastname-input":
-                setLastName({
-                    value: event.target.value, 
-                    error: validateLastNameField(event.target.value)
-                });
-                break;
-            case "email-input":
-                setEmail({
-                    value: event.target.value, 
-                    error: validateEmailField(event.target.value)
-                });
-                break;
-            case "username-input":
-                setUsername({
-                    value: event.target.value, 
-                    error: validateUsernameField(event.target.value)
-                });
-                break;
-            case "password-input":
-                setPassword({
-                    value: event.target.value, 
-                    error: validatePasswordField(event.target.value)
-                });
-                break;
-            case "confirm-password-input":
-                setConfirmPassword({
-                    value: event.target.value, 
-                    error: validateConfirmPasswordField(event.target.value)
-                });
-                break;
-            case "birthday-input":
-                setBirthday({
-                    value: event.target.value, 
-                    error: validateBirthdayField(event.target.value)
-                });
-                break;
-            default:
-                break;
-        }
-    };
-
+    /**
+     * Registers user by dispatching action to make API call.
+     */
     const registerUser = () => {
-        console.log("Registering user...");
-        console.log(firstName.value);
-        console.log(lastName.value);
-        console.log(email.value);
-        console.log(username.value);
-        console.log(password.value);
-        console.log(confirmPassword.value);
-        console.log(birthday.value);
+        const hasInvalidFields = validateFormFields();
+        console.log(hasInvalidFields);
     };
 
-    const validateFirstNameField = (value) => {
-        return !value;
+    /**
+     * Validates user's first name.
+     * 
+     * @param {EventTarget} event - Input from first name form field.
+     */
+    const validateFirstNameField = (event) => {
+        const input = event? event.target.value : firstName.value;
+        const re = /^[A-Za-z]+-*'*[A-Za-z]$/;
+        const isInvalid = !input || !re.test(input);
+        setFirstName({value: input, error: isInvalid, helperText: isInvalid? "Invalid first name" : null});
+        return isInvalid;
     };
 
-    const validateLastNameField = (value) => {
-        return !value;
+    /**
+     * Validates user's last name.
+     * 
+     * @param {EventTarget} event - Input from last name form field.
+     */
+    const validateLastNameField = (event) => {
+        const input = event? event.target.value : lastName.value;
+        const re = /^[A-Za-z]+-*'*[A-Za-z]$/;
+        const isInvalid = !input || !re.test(input);
+        setLastName({value: input, error: isInvalid, helperText: isInvalid? "Invalid last name" : null});
+        return isInvalid;
     };
 
-    const validateEmailField = (value) => {
-        return !value;
+    /**
+     * Validates user's email.
+     * 
+     * @param {EventTarget} event - Input from the email form field.
+     */
+    const validateEmailField = (event) => {
+        const input = event? event.target.value : email.value;
+        const re = /^[A-Za-z]+[A-Za-z0-9]*((-|_|\.)[A-Za-z0-9]+)*@{1}[A-Za-z]+\.[A-Za-z]{2,3}$/;
+        const isInvalid = !input || !re.test(input);
+        setEmail({value: input, error: isInvalid, helperText: isInvalid? "Invalid email" : null});
+        return isInvalid;
     };
 
-    const validateUsernameField = (value) => {
-        return !value;       
+    /**
+     * Validates user's username.
+     * 
+     * @param {EventTarget} event - Input from the username form field.
+     */
+    const validateUsernameField = (event) => {
+        const input = event? event.target.value : username.value;
+        const re = /^[A-Za-z]+[A-Za-z0-9]*((-|_|\.)[A-Za-z0-9]+)*$/;
+        const isInvalid = !input || !re.test(input);
+        setUsername({value: input, error: isInvalid, helperText: isInvalid? "Invalid username" : null});
+        return isInvalid;
     };
 
-    const validatePasswordField = (value) => {
-        return !value;
+    /**
+     * Validates user's password.
+     *  
+     * @param {EventTarget} event - Input from the password form field.
+     */
+    const validatePasswordField = (event) => {
+        const input = event? event.target.value : password.value;
+        const re = /.{8,}/;
+        const isInvalid = !input || !re.test(input);
+        setPassword({value: input, error: isInvalid, helperText: isInvalid? "Invalid password -- must be longer" : null});
+        return isInvalid;
     };
 
-    const validateConfirmPasswordField = (value) => {
-        return !value;
+    /**
+     * Confirms password.
+     *  
+     * @param {EventTarget} event - Input from the confirm password form field.
+     */
+    const validateConfirmPasswordField = (event) => {
+        const input = event? event.target.value : confirmPassword.value;
+        const isInvalid = !input || !(input === password.value);
+        setConfirmPassword({value: input, error: isInvalid, helperText: isInvalid? "Passwords do not match" : null});
+        return isInvalid;
     };
 
-    const validateBirthdayField = (value) => {
-        return !value;
+    /**
+     * Validates user's birthday.
+     *  
+     * @param {EventTarget} event - Input from the birthday form field.
+     */
+    const validateBirthdayField = (event) => {
+        const input = event? event.target.value : birthday.value;
+        setBirthday({value: input, error: !input, helperText: !input? "Please select your birth date" : null});
+        return !input;
     };
 
+    /**
+     * Validates all form fields. Meant to be called before submission.
+     * Declaring and assigning b/c of short-circuit.
+     */
+    const validateFormFields = () => {
+        const fnField = validateFirstNameField();
+        const lnField = validateLastNameField();
+        const emField = validateEmailField();
+        const unField = validateUsernameField();
+        const pwField = validatePasswordField();
+        const cpField = validateConfirmPasswordField();
+        const bdField = validateBirthdayField();
+        return fnField || lnField || emField || unField || pwField || cpField || bdField;
+    };
+
+    /**
+     * Navigates to login page.
+     */
+    const gotoLogin = () => {
+        history.push("/");
+    };
+
+    /**
+     * If user is authenticated, navigating to registration page will navigate user back home.
+     * On unmount erase form fields.
+     */
     useEffect(() => {
         if (isAuthenticated) history.push("/home");
 
@@ -119,123 +213,23 @@ const Registration = () => {
     }, []);
 
     return (
-        <div style={styles.container}>
-            <Paper style={styles.forum}>
-                <FormGroup>
-                    <Grid container spacing={3} style={styles.grid}>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="firstname-input"
-                                label="First name"
-                                type="text"
-                                margin="normal"
-                                variant="standard"
-                                fullWidth={true}
-                                required={true}
-                                onChange={handleChange}
-                                error={firstName.error}>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="lastname-input"
-                                label="Last name"
-                                type="text"
-                                margin="normal"
-                                variant="standard"
-                                fullWidth={true}
-                                required={true}
-                                onChange={handleChange}
-                                error={lastName.error}>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="email-input"
-                                label="Email"
-                                type="email"
-                                margin="normal"
-                                variant="standard"
-                                fullWidth={true}
-                                required={true}
-                                onChange={handleChange}
-                                error={email.error}>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="username-input"
-                                label="Username"
-                                type="text"
-                                margin="normal"
-                                variant="standard"
-                                fullWidth={true}
-                                required={true}
-                                onChange={handleChange}
-                                error={username.error}>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="password-input"
-                                label="Password"
-                                type="password"
-                                margin="normal"
-                                variant="standard"
-                                fullWidth={true}
-                                required={true}
-                                onChange={handleChange}
-                                error={password.error}>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="confirm-password-input"
-                                label="Confirm"
-                                type="password"
-                                margin="normal"
-                                variant="standard"
-                                fullWidth={true}
-                                required={true}
-                                onChange={handleChange}
-                                error={confirmPassword.error}>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="birthday-input"
-                                label="Birthday"
-                                type="date"
-                                margin="normal"
-                                variant="standard"
-                                fullWidth={true}
-                                required={true}
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                onChange={handleChange}
-                                error={birthday.error}>
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Grid container item>
-                                <Typography><Link style={styles.styledLink} to="/">Already have an account?</Link></Typography>
-                            </Grid>
-                            <Grid container item justify="flex-end">
-                                <Button
-                                    id="signup-submit-button"
-                                    variant="contained"
-                                    color="inherit"
-                                    style={styles.submitButton}
-                                    onClick={registerUser}>
-                                    Submit
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </FormGroup>
-            </Paper>
-        </div>
+        <MyCssContainer>
+            <MyCssTextField id="firstname-input"        label="First name" type="text"     onChange={validateFirstNameField}       error={firstName.error}       helperText={firstName.helperText}       xs={6}/>
+            <MyCssTextField id="lastname-input"         label="Last name"  type="text"     onChange={validateLastNameField}        error={lastName.error}        helperText={lastName.helperText}        xs={6}/>
+            <MyCssTextField id="email-input"            label="Email"      type="email"    onChange={validateEmailField}           error={email.error}           helperText={email.helperText}           xs={12}/>
+            <MyCssTextField id="username-input"         label="Username"   type="text"     onChange={validateUsernameField}        error={username.error}        helperText={username.helperText}        xs={12}/>
+            <MyCssTextField id="password-input"         label="Password"   type="password" onChange={validatePasswordField}        error={password.error}        helperText={password.helperText}        xs={6}/>
+            <MyCssTextField id="confirm-password-input" label="Confirm"    type="password" onChange={validateConfirmPasswordField} error={confirmPassword.error} helperText={confirmPassword.helperText} xs={6}/>
+            <MyCssTextField id="birthday-input"         label="Birthday"   type="date"     onChange={validateBirthdayField}        error={birthday.error}        helperText={birthday.helperText}        xs={12} shrink={true}/>
+            <Grid item xs={12}>
+                <Grid container item>
+                    <MyCssNavLink onClick={gotoLogin} text="Already have an account?"/>
+                </Grid>
+                <Grid container item justify="flex-end">
+                    <CssButton id="signup-button" variant="contained" color="inherit" onClick={registerUser}>Submit</CssButton>
+                </Grid>
+            </Grid>
+        </MyCssContainer>
     );
 };
 
