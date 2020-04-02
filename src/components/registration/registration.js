@@ -82,12 +82,14 @@ const Registration = () => {
     const registerUser = () => {
         const hasInvalidFields = validateFormFields();
         console.log(hasInvalidFields);
+        //TODO
     };
 
     /**
      * Validates user's first name.
      * 
      * @param {EventTarget} event - Input from first name form field.
+     * @returns {boolean} - True if invalid, otherwise false.
      */
     const validateFirstNameField = (event) => {
         const input = event? event.target.value : firstName.value;
@@ -101,6 +103,7 @@ const Registration = () => {
      * Validates user's last name.
      * 
      * @param {EventTarget} event - Input from last name form field.
+     * @returns {boolean} - True if invalid, otherwise false.
      */
     const validateLastNameField = (event) => {
         const input = event? event.target.value : lastName.value;
@@ -114,6 +117,7 @@ const Registration = () => {
      * Validates user's email.
      * 
      * @param {EventTarget} event - Input from the email form field.
+     * @returns {boolean} - True if invalid, otherwise false.
      */
     const validateEmailField = (event) => {
         const input = event? event.target.value : email.value;
@@ -127,6 +131,7 @@ const Registration = () => {
      * Validates user's username.
      * 
      * @param {EventTarget} event - Input from the username form field.
+     * @returns {boolean} - True if invalid, otherwise false.
      */
     const validateUsernameField = (event) => {
         const input = event? event.target.value : username.value;
@@ -140,6 +145,7 @@ const Registration = () => {
      * Validates user's password.
      *  
      * @param {EventTarget} event - Input from the password form field.
+     * @returns {boolean} - True if invalid, otherwise false.
      */
     const validatePasswordField = (event) => {
         const input = event? event.target.value : password.value;
@@ -153,6 +159,7 @@ const Registration = () => {
      * Confirms password.
      *  
      * @param {EventTarget} event - Input from the confirm password form field.
+     * @returns {boolean} - True if invalid, otherwise false.
      */
     const validateConfirmPasswordField = (event) => {
         const input = event? event.target.value : confirmPassword.value;
@@ -165,6 +172,7 @@ const Registration = () => {
      * Validates user's birthday.
      *  
      * @param {EventTarget} event - Input from the birthday form field.
+     * @returns {boolean} - True if invalid, otherwise false.
      */
     const validateBirthdayField = (event) => {
         const input = event? event.target.value : birthday.value;
@@ -175,8 +183,11 @@ const Registration = () => {
     /**
      * Validates all form fields. Meant to be called before submission.
      * Declaring and assigning b/c of short-circuit.
+     * 
+     * @returns {boolean} - True if invalid, otherwise false.
      */
     const validateFormFields = () => {
+        //TODO - Maybe allow short-circuit b/c the warning text for fields stretches container height
         const fnField = validateFirstNameField();
         const lnField = validateLastNameField();
         const emField = validateEmailField();
